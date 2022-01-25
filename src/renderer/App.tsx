@@ -1,21 +1,21 @@
-import { MemoryRouter as Router, Routes, Route } from 'react-router-dom';
-import Hi from './Example';
+import { Routes, Route } from 'react-router-dom';
+import TitleBar from 'components/TitleBar';
+import ViewPort from 'components/ViewPort';
+import '../scss/App.scss';
 
-const Hello = () => {
+const App = () => {
   return (
-    <div>
-      <div>Communication Test</div>
-      <Hi />
+    <div className="app">
+      <TitleBar />
+      <ViewPort />
     </div>
   );
 };
 
-export default function App() {
+export default () => {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Hello />} />
-      </Routes>
-    </Router>
+    <Routes>
+      <Route path="/" element={<App />} />
+    </Routes>
   );
-}
+};

@@ -1,4 +1,13 @@
+import { StrictMode } from 'react';
 import { render } from 'react-dom';
+import { MemoryRouter as Router } from 'react-router-dom';
 import App from './App';
 
-render(<App />, document.getElementById('root'));
+render(
+  <StrictMode>
+    <Router>
+      <App />
+    </Router>
+  </StrictMode>,
+  document.getElementById('root')
+);
