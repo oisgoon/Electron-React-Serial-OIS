@@ -1,6 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
-import TitleBar from 'components/TitleBar';
-import ViewPort from 'components/ViewPort';
+import TitleBar from '../components/TitleBar';
+import ViewPort from '../components/ViewPort';
 import '../scss/App.scss';
 
 const App = () => {
