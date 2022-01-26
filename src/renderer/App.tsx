@@ -6,6 +6,7 @@ import '../scss/App.scss';
 const App = () => {
   return (
     <div className="app">
+      Test
       <TitleBar />
       <ViewPort />
     </div>
