@@ -1,7 +1,11 @@
-.view_port {
+.view_port_template {
   background-color: rgb(33, 33, 33);
   color: white;
 
   width: 100%;
   height: calc(100% - 2rem);
+}
+
+.view_port {
+  padding: 10px;
 }

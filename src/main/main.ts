@@ -73,10 +73,11 @@ const createWindow = async () => {
 
   mainWindow = new BrowserWindow({
     show: false,
-    width: 1024,
-    height: 728,
+    width: 800,
+    height: 600,
     frame: false,
-    icon: getAssetPath('icon.png'),
+    // resizable: false,
+    icon: getAssetPath('icon_red.png'),
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
     },
@@ -136,3 +137,9 @@ app
     });
   })
   .catch(console.log);
+
+ipcMain.on('close', async (event, func) => {
+  console.log(`hihi`);
+  // app.quit();
+  event.reply('close', `bye`);
+});
