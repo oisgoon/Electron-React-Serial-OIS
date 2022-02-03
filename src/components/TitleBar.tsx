@@ -5,7 +5,6 @@ import '../scss/TitleBar.scss';
 import icon from '../../assets/icon_red.svg';
 
 function TitleBar() {
-  window.electron.ipcRenderer.send('close');
   return (
     <div className="title_bar">
       <div className="program_icon">

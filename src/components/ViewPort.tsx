@@ -1,11 +1,18 @@
+import React from 'react';
 import '../scss/ViewPort.scss';
+import CommSetting from './CommSetting';
+import SendPanel from './SendPanel';
 
-function ViewPort() {
-  return (
-    <div className="view_port_template">
-      <div className="view_port">View Port</div>
-    </div>
-  );
+export default class ViewPort extends React.PureComponent {
+  render() {
+    return (
+      <div className="view_port_template">
+        <div className="view_port">
+          View Port
+          <CommSetting />
+          <SendPanel />
+        </div>
+      </div>
+    );
+  }
 }
-
-export default ViewPort;
