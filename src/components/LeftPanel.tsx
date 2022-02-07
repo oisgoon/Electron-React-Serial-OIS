@@ -7,7 +7,6 @@ export default class LeftPanel extends React.PureComponent {
   render(): React.ReactNode {
     return (
       <div className="left_panel">
-        LeftPanel
         <CommSetting />
         <SendPanel />
       </div>
