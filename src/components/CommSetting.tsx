@@ -22,6 +22,9 @@ export default class CommSetting extends React.PureComponent {
                 <option value="38400">38400</option>
                 <option value="57600">57600</option>
                 <option value="115200">115200</option>
+                <option value="230400">230400</option>
+                <option value="460800">460800</option>
+                <option value="921600">921600</option>
               </select>
             </div>
             <div className="comm_element">

@@ -1,7 +1,52 @@
+$background_color: rgb(80, 80, 80);
+
 .send_form {
   display: flex;
+  align-items: center;
+
+  margin-bottom: 5px;
+
+  width: 100%;
 }
 
-.input_value {
-  width: 30px;
+input.delay_time {
+  margin-right: 5px;
+
+  width: 40px;
+  color: white;
+  background-color: $background_color;
+}
+
+.send_button {
+  margin-right: 5px;
+
+  color: white;
+  background-color: $background_color;
+}
+
+.cr_btn,
+.lf_btn {
+  width: 16px;
+  height: 16px;
+
+  margin-right: 5px;
+
+  color: white;
+  background-color: $background_color;
+}
+
+.data_type {
+  margin-right: 5px;
+
+  color: white;
+  background-color: $background_color;
+}
+
+input.data_input {
+  width: 1px;
+
+  flex-grow: 1;
+
+  color: white;
+  background-color: $background_color;
 }
