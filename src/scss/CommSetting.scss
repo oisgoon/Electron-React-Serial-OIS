@@ -1,4 +1,17 @@
-.comm_setting_panel{
+.comm_setting_panel {
   width: 45%;
-  border: solid 1px;
+}
+
+.comm_elements {
+  display: flex;
+  justify-content: center;
+}
+
+.comm_item {
+  display: flex;
+}
+
+.comm_input {
+  display: flex;
+  justify-content: center;
 }

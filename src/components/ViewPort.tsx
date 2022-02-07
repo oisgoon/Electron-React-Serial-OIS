@@ -1,16 +1,15 @@
 import React from 'react';
 import '../scss/ViewPort.scss';
-import CommSetting from './CommSetting';
-import SendPanel from './SendPanel';
+import LeftPanel from './LeftPanel';
+import RigthPanel from './RightPanel';
 
 export default class ViewPort extends React.PureComponent {
   render() {
     return (
       <div className="view_port_template">
         <div className="view_port">
-          View Port
-          <CommSetting />
-          <SendPanel />
+          <LeftPanel />
+          <RigthPanel />
         </div>
       </div>
     );

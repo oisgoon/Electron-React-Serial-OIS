@@ -137,9 +137,3 @@ app
     });
   })
   .catch(console.log);
-
-ipcMain.on('close', async (event, func) => {
-  console.log(`hihi`);
-  // app.quit();
-  event.reply('close', `bye`);
-});
