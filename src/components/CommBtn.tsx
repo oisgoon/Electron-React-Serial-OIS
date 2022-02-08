@@ -6,7 +6,7 @@ export default class CommBtn extends React.PureComponent {
     return (
       <div className="comm_btns">
         <button type="button" className="connect_btn comm_btn">
-          connect
+          Connect
         </button>
         <button type="button" className="start_btn comm_btn">
           Start

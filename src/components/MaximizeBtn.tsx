@@ -1,7 +1,8 @@
+import React from 'react';
 import '../scss/MaximizeBtn.scss';
 
-function MaximizeBtn() {
-  return <div className="maximize_btn">□</div>;
+export default class MaximizeBtn extends React.PureComponent {
+  render(): React.ReactNode {
+    return <div className="maximize_btn">□</div>;
+  }
 }
-
-export default MaximizeBtn;

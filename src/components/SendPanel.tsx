@@ -10,6 +10,7 @@ export default class SendPanel extends React.PureComponent {
         <fieldset className="send_panel_border">
           <div className="option_label">
             <div className="auto">Auto</div>
+            <div className="send" />
             <div className="cr">CR</div>
             <div className="lf">LF</div>
             <div className="type">Type</div>

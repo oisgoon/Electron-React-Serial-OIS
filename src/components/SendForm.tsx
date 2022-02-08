@@ -5,17 +5,23 @@ export default class SendForm extends React.PureComponent {
   render() {
     return (
       <div className="send_form">
-        <input type="radio" name="auto" className="auto_chk" />
+        <div className="auto_chk">
+          <input type="radio" name="auto" />
+        </div>
         <button type="button" className="send_button">
           Send
         </button>
-        <input type="checkbox" className="cr_btn" />
-        <input type="checkbox" className="lf_btn" />
+        <div className="cr_btn">
+          <input type="checkbox" />
+        </div>
+        <div className="lf_btn">
+          <input type="checkbox" />
+        </div>
         <select className="data_type">
           <option value="ASC">ASC</option>
           <option value="HEX">HEX</option>
         </select>
-        <input className="data_input" />
+        <input className="data_input" tabIndex="1" />
       </div>
     );
   }

@@ -52,7 +52,7 @@ export default class CommSetting extends React.PureComponent {
               </select>
             </div>
             <div className="comm_element">
-              <div className="comm_item">Delay</div>
+              <div className="comm_item">Delay (ms)</div>
               <input id="delay" className="comm_input" value="0" />
             </div>
           </div>

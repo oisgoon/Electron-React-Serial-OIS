@@ -7,6 +7,8 @@
 }
 
 .receive_panel_title {
+  font-size: 2.5vmin;
+
   margin-left: 10px;
   margin-bottom: 5px;
 
@@ -22,10 +24,12 @@
   width: auto;
   height: auto;
 
-  padding: 10px;
+  padding: 3%;
 
-  // border-color: rgb(80, 80, 80);
-  border: solid 1px rgb(227, 21, 74);
+  font-size: 2vmin;
+  // border: solid 1px rgb(227, 21, 74, 0.6);
+  border: solid 1px rgb(80, 80, 80);
+
   border-radius: 5px;
 
   background-color: rgb(20, 20, 20);
@@ -39,8 +43,35 @@
   font-size: 1em;
   font-family: 'Malgun Gothic';
 
+  overflow: hidden;
+  transition: overflow 2s;
+
   border: none;
   background-color: rgb(20, 20, 20);
 
   resize: none;
+}
+
+.receive_data:hover {
+  overflow-y: scroll;
+  -webkit-animation: scrollvisible 1s;
+}
+
+.receive_data::-webkit-scrollbar{
+  width: 15px;
+  border-radius: 15px;
+}
+
+.receive_data::-webkit-scrollbar-thumb {
+  background-color: rgb(120, 120, 120);
+  border-radius: 15px;
+}
+
+.receive_data::-webkit-scrollbar-thumb:hover {
+  background-color: rgb(200, 200, 200);
+}
+
+.receive_data::-webkit-scrollbar-track {
+  background-color: rgb(80, 80, 80);
+  border-radius: 15px;
 }

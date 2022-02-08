@@ -1,4 +1,6 @@
 .view_port_template {
+  user-select: none;
+
   display: flex;
   color: white;
 
@@ -14,4 +16,8 @@
   height: auto;
 
   margin: 20px;
+}
+
+*:focus {
+  outline: 0px;
 }

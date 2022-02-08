@@ -2,35 +2,42 @@ $background_color: rgb(80, 80, 80);
 
 .send_form {
   display: flex;
+  justify-content: center;
   align-items: center;
-
-  margin-bottom: 5px;
 
   width: 100%;
 }
 
-input[type="radio"]{
-  -webkit-appearance: none;
-  -moz-appearance: none;
+.auto_chk {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 10%;
 }
 
 input[type="radio"] {
-  width:19px;
-  height:19px;
-  background:url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/210284/check_radio_sheet.png) -38px top no-repeat;
-  cursor:pointer;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  width: 19px;
+  height: 19px;
+
+  padding: 0px;
+  margin: 0px;
+
+  background: url('../../assets/check_radio_sheet.png') -38px top no-repeat;
+  cursor: pointer;
 }
 
 input[type="radio"]:checked {
-  background:url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/210284/check_radio_sheet.png) -57px top no-repeat;
-}
-
-.auto_chk {
-  margin-right: 8px;
+  background:url('../../assets/check_radio_sheet.png') -57px top no-repeat;
 }
 
 .send_button {
-  margin-right: 5px;
+  width: 15%;
+
+  font-size: 2vmin;
 
   color: white;
   background-color: $background_color;
@@ -38,26 +45,38 @@ input[type="radio"]:checked {
   cursor: pointer;
 }
 
-input[type="checkbox"] {
+.cr_btn, .lf_btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  height: 100%;
+  width: 8%;
+}
+
+input[type="checkbox"]{
   -webkit-appearance: none;
   -moz-appearance: none;
+
+  margin: 0px;
 }
 
 input[type="checkbox"] {
-  display:inline-block;
-  width:19px;
-  height:16px;
-  margin-right: 2px;
-  background:url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/210284/check_radio_sheet.png) left top no-repeat;
-  cursor:pointer;
+  display: inline-block;
+  width: 19px;
+  height: 19px;
+  background: url('../../assets/check_radio_sheet.png') left top no-repeat;
+  cursor: pointer;
 }
 
 input[type="checkbox"]:checked {
-  background:url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/210284/check_radio_sheet.png) -19px top no-repeat;
+  background: url('../../assets/check_radio_sheet.png') -19px top no-repeat;
 }
 
 .data_type {
-  margin: 0px 5px;
+  margin-right: 2%;
+  width: 16%;
+  font-size: 2vmin;
 
   color: white;
   background-color: $background_color;
@@ -67,6 +86,8 @@ input.data_input {
   width: 1px;
 
   flex-grow: 1;
+
+  font-size: 2vmin;
 
   color: white;
   background-color: $background_color;
