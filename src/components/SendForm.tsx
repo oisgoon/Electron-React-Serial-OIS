@@ -21,7 +21,7 @@ export default class SendForm extends React.PureComponent {
           <option value="ASC">ASC</option>
           <option value="HEX">HEX</option>
         </select>
-        <input className="data_input" tabIndex="1" />
+        <input className="data_input" />
       </div>
     );
   }

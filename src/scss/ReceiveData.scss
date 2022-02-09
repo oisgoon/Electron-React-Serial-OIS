@@ -1,3 +1,5 @@
+$background_color: rgb(80, 80, 80);
+
 .receive_panel {
   display: flex;
   flex-direction: column;
@@ -7,12 +9,29 @@
 }
 
 .receive_panel_title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
   font-size: 2.5vmin;
 
   margin-left: 10px;
   margin-bottom: 5px;
 
   color: rgb(160, 160, 160);
+}
+
+.reset_button {
+  width: 15%;
+
+  font-size: 2vmin;
+
+  margin-right: 1%;
+
+  color: white;
+  background-color: $background_color;
+
+  cursor: pointer;
 }
 
 .receive_panel_border {
@@ -54,10 +73,9 @@
 
 .receive_data:hover {
   overflow-y: scroll;
-  -webkit-animation: scrollvisible 1s;
 }
 
-.receive_data::-webkit-scrollbar{
+.receive_data::-webkit-scrollbar {
   width: 15px;
   border-radius: 15px;
 }
