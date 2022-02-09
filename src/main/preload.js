@@ -14,15 +14,25 @@ contextBridge.exposeInMainWorld('electron', {
     on(channel, func) {
       const validChannels = ['ipc-example'];
       if (validChannels.includes(channel)) {
+        const subscription = (event, ...args) => func(...args);
         // Deliberately strip event as it includes `sender`
-        ipcRenderer.on(channel, (event, ...args) => func(...args));
+        ipcRenderer.on(channel, subscription);
+        return () => ipcRenderer.removeListener(channel, subscription);
       }
+      return null;
     },
     once(channel, func) {
       const validChannels = ['ipc-example'];
       if (validChannels.includes(channel)) {
         // Deliberately strip event as it includes `sender`
         ipcRenderer.once(channel, (event, ...args) => func(...args));
+      }
+    },
+    removeAll(channel) {
+      const validChannels = ['ipc-example'];
+      if (validChannels.includes(channel)) {
+        // Deliberately strip event as it includes `sender`
+        ipcRenderer.removeAllListeners(channel);
       }
     },
   },

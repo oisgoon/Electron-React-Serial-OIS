@@ -4,7 +4,18 @@ import CloseBtn from './CloseBtn';
 import '../scss/TitleBar.scss';
 import icon from '../../assets/icon_red.svg';
 
-function TitleBar() {
+declare global {
+  interface Window {
+    electron: IElectronAPI;
+  }
+}
+
+export interface IElectronAPI {
+  ipcRenderer: unknown;
+}
+
+const TitleBar = () => {
+  // const li = window.electron.ipcRenderer.on()
   return (
     <div className="title_bar">
       <div className="program_icon">
@@ -17,7 +28,8 @@ function TitleBar() {
         <CloseBtn />
       </div>
     </div>
+    // li();
   );
-}
+};
 
 export default TitleBar;
