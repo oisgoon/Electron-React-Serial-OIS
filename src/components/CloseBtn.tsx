@@ -1,7 +1,24 @@
 import '../scss/CloseBtn.scss';
+import Console from '../lib/console';
+
+const onClickHandler = () => {
+  Console.log('Close !!!');
+};
 
 const CloseBtn = () => {
-  return <div className="close_btn">Ⅹ</div>;
+  return (
+    <div>
+      <div
+        onClick={onClickHandler}
+        onKeyPress={onClickHandler}
+        role="button"
+        tabIndex={0}
+        className="close_btn"
+      >
+        Ⅹ
+      </div>
+    </div>
+  );
 };
 
 export default CloseBtn;

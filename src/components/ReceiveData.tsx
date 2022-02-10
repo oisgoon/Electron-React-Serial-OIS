@@ -2,7 +2,7 @@ import '../scss/ReceiveData.scss';
 import Console from '../lib/console';
 
 const onReset = () => {
-  Console.log('hihi');
+  Console.log('Reset !!!');
 };
 
 const ReceiveData = () => {

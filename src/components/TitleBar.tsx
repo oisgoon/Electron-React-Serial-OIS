@@ -15,7 +15,6 @@ export interface IElectronAPI {
 }
 
 const TitleBar = () => {
-  // const li = window.electron.ipcRenderer.on()
   return (
     <div className="title_bar">
       <div className="program_icon">
@@ -28,7 +27,6 @@ const TitleBar = () => {
         <CloseBtn />
       </div>
     </div>
-    // li();
   );
 };
 

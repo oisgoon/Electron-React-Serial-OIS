@@ -1,5 +1,8 @@
 .close_btn {
   -webkit-app-region: no-drag;
+
+  height: 100%;
+
   color: white;
 }
 
@@ -8,5 +11,5 @@
 }
 
 .close_btn:active{
-  background-color: rgb(247, 51, 100);
+  background-color: rgb(170, 18, 56);
 }
