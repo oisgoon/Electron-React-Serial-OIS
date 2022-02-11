@@ -6,12 +6,12 @@ import icon from '../../assets/icon_red.svg';
 
 declare global {
   interface Window {
-    electron: IElectronAPI;
+    electron: any;
   }
 }
 
 export interface IElectronAPI {
-  ipcRenderer: unknown;
+  ipcRenderer: any;
 }
 
 const TitleBar = () => {

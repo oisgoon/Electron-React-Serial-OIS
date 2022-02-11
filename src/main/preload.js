@@ -9,17 +9,17 @@ contextBridge.exposeInMainWorld('electron', {
       ipcRenderer.send(channel, func);
     },
     receive(channel, func) {
-      ipcRenderer.on(channel, (event, ...args) => func(...args));
+      ipcRenderer.on(channel, func);
     },
     on(channel, func) {
       const validChannels = ['ipc-example'];
       if (validChannels.includes(channel)) {
-        const subscription = (event, ...args) => func(...args);
+        // const subscription = (event, ...args) => func(...args);
         // Deliberately strip event as it includes `sender`
-        ipcRenderer.on(channel, subscription);
-        return () => ipcRenderer.removeListener(channel, subscription);
+        ipcRenderer.on(channel, func);
+        // return () => ipcRenderer.removeListener(channel, subscription);
       }
-      return null;
+      // return null;
     },
     once(channel, func) {
       const validChannels = ['ipc-example'];
@@ -37,3 +37,19 @@ contextBridge.exposeInMainWorld('electron', {
     },
   },
 });
+
+// contextBridge.exposeInMainWorld('api', {
+//   send: (channel, data) => {
+//     // let validChannels = ["test"];
+//     // if (validChannels.includes(channel)) {
+//     // console.log(data);
+//     ipcRenderer.send(channel, data);
+//     // }
+//   },
+//   receive: (channel, func) => {
+//     // let validChannels = ["test"];
+//     // if (validChannels.includes(channel)) {
+//     ipcRenderer.on(channel, (event, ...args) => func(...args));
+//     // }
+//   },
+// });

@@ -1,8 +1,10 @@
 import '../scss/MinimizeBtn.scss';
+import { ipcRenderer } from 'electron';
 import Console from '../lib/console';
 
 const onClickHandler = () => {
   Console.log('Minimize!!!');
+  ipcRenderer.send('minimize', () => {});
 };
 
 const MinimizeBtn = () => {

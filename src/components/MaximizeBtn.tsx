@@ -1,13 +1,10 @@
 import '../scss/MaximizeBtn.scss';
 import Console from '../lib/console';
-
 // const { ipcRenderer } = require('electron');
 
 const onClickHandler = () => {
   Console.log('Maximize!!!');
-  // ipcRenderer.once('ipc-example', (arg) => {
-  //   Console.log(arg);
-  // });
+  window.electron.ipcRenderer.on('maximize');
 };
 
 const MaximizeBtn = () => {

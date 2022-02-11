@@ -72,7 +72,7 @@ const createWindow = async () => {
   };
 
   mainWindow = new BrowserWindow({
-    show: true,
+    show: false,
     width: 800,
     height: 600,
     frame: false,
@@ -80,6 +80,8 @@ const createWindow = async () => {
     icon: getAssetPath('icon_red.png'),
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
+      nodeIntegration: true,
+      contextIsolation: false,
     },
   });
 
@@ -137,3 +139,15 @@ app
     });
   })
   .catch(console.log);
+
+ipcMain.on('minimize', async (event, arg) => {
+  const msgTemplate = (pingPong: string) => `IPC test: ${pingPong}`;
+  console.log(msgTemplate(arg));
+  event.reply('ipc-example', msgTemplate('pong'));
+});
+
+ipcMain.on('minimize', async (event, arg) => {
+  const msgTemplate = (pingPong: string) => `IPC test: ${pingPong}`;
+  console.log(msgTemplate(arg));
+  event.reply('ipc-example', msgTemplate('pong'));
+});
