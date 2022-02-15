@@ -11,7 +11,7 @@ declare global {
 }
 
 export interface IElectronAPI {
-  ipcRenderer: unknown;
+  ipcRenderer: any;
 }
 
 const TitleBar = () => {
@@ -20,7 +20,7 @@ const TitleBar = () => {
       <div className="program_icon">
         <img width="32px" alt="icon" src={icon} />
       </div>
-      <div className="title">Cummunication Test - Client - OIS</div>
+      <div className="title">Communication Test - Client - OIS</div>
       <div className="control_btn">
         <MinimizeBtn />
         <MaximizeBtn />

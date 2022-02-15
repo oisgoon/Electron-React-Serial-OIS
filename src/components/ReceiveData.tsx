@@ -1,21 +1,18 @@
+import { useState } from 'react';
 import '../scss/ReceiveData.scss';
-import Console from '../lib/console';
-
-const onReset = () => {
-  Console.log('Reset !!!');
-};
+import ResetBtn from './ResetBtn';
 
 const ReceiveData = () => {
+  const [receiveData] = useState();
+
   return (
     <div className="receive_panel">
       <div className="receive_panel_title">
         Receive Data
-        <button type="button" onClick={onReset} className="reset_button">
-          Reset
-        </button>
+        <ResetBtn />
       </div>
       <fieldset className="receive_panel_border">
-        <textarea className="receive_data" />
+        <textarea className="receive_data" onChange={receiveData} />
       </fieldset>
     </div>
   );

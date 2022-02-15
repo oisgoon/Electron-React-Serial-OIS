@@ -8,6 +8,7 @@ const onClickHandler = () => {
   // ipcRenderer.once('ipc-example', (arg) => {
   //   Console.log(arg);
   // });
+  window.electron.ipcRenderer.send('maximize');
 };
 
 const MaximizeBtn = () => {

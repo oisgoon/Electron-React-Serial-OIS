@@ -3,36 +3,31 @@ const { contextBridge, ipcRenderer } = require('electron');
 contextBridge.exposeInMainWorld('electron', {
   ipcRenderer: {
     myPing() {
+      // console.log('pinping');
       ipcRenderer.send('ipc-example', 'ping');
     },
     send(channel, func) {
+      console.log(channel + func);
       ipcRenderer.send(channel, func);
     },
     receive(channel, func) {
+      console.log(channel);
+      console.log(func);
+      // ipcRenderer.on(channel, func);
       ipcRenderer.on(channel, (event, ...args) => func(...args));
     },
     on(channel, func) {
       const validChannels = ['ipc-example'];
       if (validChannels.includes(channel)) {
-        const subscription = (event, ...args) => func(...args);
         // Deliberately strip event as it includes `sender`
-        ipcRenderer.on(channel, subscription);
-        return () => ipcRenderer.removeListener(channel, subscription);
+        ipcRenderer.on(channel, (event, ...args) => func(...args));
       }
-      return null;
     },
     once(channel, func) {
       const validChannels = ['ipc-example'];
       if (validChannels.includes(channel)) {
         // Deliberately strip event as it includes `sender`
         ipcRenderer.once(channel, (event, ...args) => func(...args));
-      }
-    },
-    removeAll(channel) {
-      const validChannels = ['ipc-example'];
-      if (validChannels.includes(channel)) {
-        // Deliberately strip event as it includes `sender`
-        ipcRenderer.removeAllListeners(channel);
       }
     },
   },

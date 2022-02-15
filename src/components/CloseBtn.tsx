@@ -3,6 +3,7 @@ import Console from '../lib/console';
 
 const onClickHandler = () => {
   Console.log('Close !!!');
+  window.electron.ipcRenderer.send('close');
 };
 
 const CloseBtn = () => {

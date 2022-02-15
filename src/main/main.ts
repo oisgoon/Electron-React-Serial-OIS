@@ -25,7 +25,8 @@ export default class AppUpdater {
   }
 }
 
-let mainWindow: BrowserWindow | null = null;
+// let mainWindow: BrowserWindow | null = null;
+let mainWindow: BrowserWindow;
 
 ipcMain.on('ipc-example', async (event, arg) => {
   const msgTemplate = (pingPong: string) => `IPC test: ${pingPong}`;
@@ -72,7 +73,7 @@ const createWindow = async () => {
   };
 
   mainWindow = new BrowserWindow({
-    show: true,
+    show: false,
     width: 800,
     height: 600,
     frame: false,
@@ -96,9 +97,9 @@ const createWindow = async () => {
     }
   });
 
-  mainWindow.on('closed', () => {
-    mainWindow = null;
-  });
+  // mainWindow.on('closed', () => {
+  //   mainWindow = null;
+  // });
 
   const menuBuilder = new MenuBuilder(mainWindow);
   menuBuilder.buildMenu();
@@ -137,3 +138,28 @@ app
     });
   })
   .catch(console.log);
+
+ipcMain.on('minimize', (event, data) => {
+  console.log(data);
+  // event.reply('minimize', 'hihi');
+  // event.preventDefault();
+  mainWindow.minimize();
+});
+
+ipcMain.on('maximize', (event, data) => {
+  console.log(data);
+  // event.reply('minimize', 'hihi');
+  // event.preventDefault();
+  if (mainWindow.isMaximized()) {
+    mainWindow.restore();
+  } else {
+    mainWindow.maximize();
+  }
+});
+
+ipcMain.on('close', (event, data) => {
+  // console.log(data);
+  // event.reply('minimize', 'hihi');
+  // event.preventDefault();
+  mainWindow.close();
+});
