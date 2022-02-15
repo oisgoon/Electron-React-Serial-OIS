@@ -6,7 +6,7 @@ import icon from '../../assets/icon_red.svg';
 
 declare global {
   interface Window {
-    electron: IElectronAPI;
+    electron: any;
   }
 }
 
