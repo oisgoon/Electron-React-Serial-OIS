@@ -1,18 +1,23 @@
-import { useState } from 'react';
+import React from 'react';
 import '../scss/ReceiveData.scss';
-import ResetBtn from './ResetBtn';
 
 const ReceiveData = () => {
-  const [receiveData] = useState();
+  const [receiveData, setReceiveData] = React.useState('');
+
+  const onReset = () => {
+    setReceiveData('');
+  };
 
   return (
     <div className="receive_panel">
       <div className="receive_panel_title">
         Receive Data
-        <ResetBtn />
+        <button type="button" onClick={onReset} className="reset_button">
+          Reset
+        </button>
       </div>
       <fieldset className="receive_panel_border">
-        <textarea className="receive_data" onChange={receiveData} />
+        <textarea className="receive_data" value={receiveData} />
       </fieldset>
     </div>
   );

@@ -25,7 +25,6 @@ export default class AppUpdater {
   }
 }
 
-// let mainWindow: BrowserWindow | null = null;
 let mainWindow: BrowserWindow;
 
 ipcMain.on('ipc-example', async (event, arg) => {
@@ -141,15 +140,11 @@ app
 
 ipcMain.on('minimize', (event, data) => {
   console.log(data);
-  // event.reply('minimize', 'hihi');
-  // event.preventDefault();
   mainWindow.minimize();
 });
 
 ipcMain.on('maximize', (event, data) => {
   console.log(data);
-  // event.reply('minimize', 'hihi');
-  // event.preventDefault();
   if (mainWindow.isMaximized()) {
     mainWindow.restore();
   } else {
@@ -158,8 +153,6 @@ ipcMain.on('maximize', (event, data) => {
 });
 
 ipcMain.on('close', (event, data) => {
-  // console.log(data);
-  // event.reply('minimize', 'hihi');
-  // event.preventDefault();
+  console.log(data);
   mainWindow.close();
 });
