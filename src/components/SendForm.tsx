@@ -1,12 +1,24 @@
+import React from 'react';
 import '../scss/SendForm.scss';
 
 const SendForm = () => {
+  const [sendData, setSendData] = React.useState('');
+
+  const onSendData = () => {
+    window.electron.ipcRenderer.send('senddata', sendData);
+  };
+
+  const onChange = (e: any) => {
+    const { value } = e.target;
+    setSendData(value);
+  };
+
   return (
     <div className="send_form">
       <div className="auto_chk">
         <input type="radio" name="auto" />
       </div>
-      <button type="button" className="send_button">
+      <button type="button" onClick={onSendData} className="send_button">
         Send
       </button>
       <div className="cr_btn">
@@ -19,7 +31,7 @@ const SendForm = () => {
         <option value="ASC">ASC</option>
         <option value="HEX">HEX</option>
       </select>
-      <input className="data_input" />
+      <input value={sendData} onChange={onChange} className="data_input" />
     </div>
   );
 };

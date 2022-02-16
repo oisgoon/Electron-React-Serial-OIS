@@ -17,6 +17,13 @@ import log from 'electron-log';
 import MenuBuilder from './menu';
 import { resolveHtmlPath } from './util';
 
+const { SerialPort } = require('serialport');
+// const { DelimiterParser } = require('@serialport/parser-delimiter');
+const { ReadlineParser } = require('@serialport/parser-readline');
+
+const port = new SerialPort({ path: 'COM5', baudRate: 9600 });
+let parser;
+
 export default class AppUpdater {
   constructor() {
     log.transports.file.level = 'info';
@@ -155,4 +162,32 @@ ipcMain.on('maximize', (event, data) => {
 ipcMain.on('close', (event, data) => {
   console.log(data);
   mainWindow.close();
+});
+
+ipcMain.on('connect', (event, data) => {
+  console.log(data);
+  parser = port.pipe(new ReadlineParser({ delimiter: '\n' }));
+
+  parser.on('data', (parserData: any) => {
+    console.log('Data:', parserData);
+    event.reply('read_data', parserData.toString('utf-8'));
+  });
+  // parser.on('data', console.log);
+});
+
+ipcMain.on('start', (event, data) => {
+  console.log(data);
+});
+
+ipcMain.on('reset', (event, data) => {
+  console.log(data);
+});
+
+ipcMain.on('save', (event, data) => {
+  console.log(data);
+});
+
+ipcMain.on('senddata', (event, data) => {
+  console.log(data);
+  port.write(data);
 });

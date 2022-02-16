@@ -3,7 +3,7 @@ import Console from '../lib/console';
 
 const onClickHandler = () => {
   Console.log('Minimize!!!');
-  window.electron.ipcRenderer.send('minimize');
+  window.electron.ipcRenderer.send('minimize', 'minimize');
 };
 
 const MinimizeBtn = () => {

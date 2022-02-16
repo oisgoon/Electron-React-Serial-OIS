@@ -3,7 +3,7 @@ import Console from '../lib/console';
 
 const onClickHandler = () => {
   Console.log('Maximize!!!');
-  window.electron.ipcRenderer.send('maximize');
+  window.electron.ipcRenderer.send('maximize', 'maximize');
 };
 
 const MaximizeBtn = () => {
