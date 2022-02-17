@@ -4,7 +4,7 @@ import Console from 'lib/console';
 
 const ReceiveData = () => {
   const [receiveData, setReceiveData] = React.useState('test');
-  const [saveData, setSaveData] = React.useState('');
+  let viewData: any;
 
   const onReset = () => {
     setReceiveData('');
@@ -15,8 +15,10 @@ const ReceiveData = () => {
     window.electron.ipcRenderer.send('save', 'save');
   };
 
-  window.electron.ipcRenderer.receive('read_data', () => {
-    Console.log('hihi');
+  window.electron.ipcRenderer.receive('read_data', (data: any) => {
+    // viewData += data;
+    // setReceiveData(viewData);
+    setReceiveData(receiveData.concat(data));
   });
 
   return (

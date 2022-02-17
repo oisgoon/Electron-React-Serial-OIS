@@ -18,10 +18,10 @@ import MenuBuilder from './menu';
 import { resolveHtmlPath } from './util';
 
 const { SerialPort } = require('serialport');
-// const { DelimiterParser } = require('@serialport/parser-delimiter');
-const { ReadlineParser } = require('@serialport/parser-readline');
+const { DelimiterParser } = require('@serialport/parser-delimiter');
+// const { ReadlineParser } = require('@serialport/parser-readline');
 
-const port = new SerialPort({ path: 'COM5', baudRate: 9600 });
+const port = new SerialPort({ path: 'COM10', baudRate: 115200 });
 let parser;
 
 export default class AppUpdater {
@@ -166,28 +166,45 @@ ipcMain.on('close', (event, data) => {
 
 ipcMain.on('connect', (event, data) => {
   console.log(data);
-  parser = port.pipe(new ReadlineParser({ delimiter: '\n' }));
+  parser = port.pipe(new DelimiterParser({ delimiter: '\n' }));
 
   parser.on('data', (parserData: any) => {
-    console.log('Data:', parserData);
-    event.reply('read_data', parserData.toString('utf-8'));
+    // console.log('Data:', parserData);
+    // event.reply('read_data', parserData.toString('utf-8'));
+    event.reply('read_data', `${parserData}\n`);
   });
   // parser.on('data', console.log);
 });
 
 ipcMain.on('start', (event, data) => {
-  console.log(data);
+  console.log(`start : ${data}`);
 });
 
 ipcMain.on('reset', (event, data) => {
-  console.log(data);
+  console.log(`reset : ${data}`);
 });
 
 ipcMain.on('save', (event, data) => {
-  console.log(data);
+  console.log(`save : ${data}`);
 });
 
-ipcMain.on('senddata', (event, data) => {
-  console.log(data);
-  port.write(data);
+ipcMain.on('send_data', (event, data) => {
+  console.log(`send_data : ${data}`);
+  port.write(`${data}\n`);
+});
+
+ipcMain.on('baudrate', (event, data) => {
+  console.log(`baudrate : ${data}`);
+});
+
+ipcMain.on('databits', (event, data) => {
+  console.log(`databits : ${data}`);
+});
+
+ipcMain.on('parity', (event, data) => {
+  console.log(`parity : ${data}`);
+});
+
+ipcMain.on('stopbits', (event, data) => {
+  console.log(`stopbits : ${data}`);
 });

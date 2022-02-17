@@ -5,7 +5,7 @@ const SendForm = () => {
   const [sendData, setSendData] = React.useState('');
 
   const onSendData = () => {
-    window.electron.ipcRenderer.send('senddata', sendData);
+    window.electron.ipcRenderer.send('send_data', sendData);
   };
 
   const onChange = (e: any) => {
