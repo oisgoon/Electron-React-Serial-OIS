@@ -1,4 +1,4 @@
-import ReceiveData from './ReceiveData';
+import ReceiveData from './ReceivePanel';
 import '../scss/RightPanel.scss';
 
 const RigthPanel = () => {
