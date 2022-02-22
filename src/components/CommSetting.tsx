@@ -1,8 +1,28 @@
 import Console from 'lib/console';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import '../scss/CommSetting.scss';
 
 const CommSetting = () => {
+  const [list, setList] = useState<string[]>(['']);
+
+  useEffect(() => {
+    window.electron.ipcRenderer.send('loading');
+    window.electron.ipcRenderer.receive('loading_data', (data: any) => {
+      data.sort(function bar(a: any, b: any) {
+        return Number(a.match(/(\d+)/g)[0]) - Number(b.match(/(\d+)/g)[0]);
+      });
+      Console.log(data);
+      setList(data);
+    });
+  }, []);
+
+  const onChangeComport = (e: {
+    target: { value: React.SetStateAction<string> };
+  }) => {
+    Console.log(e.target.value);
+    window.electron.ipcRenderer.send('comport', e.target.value);
+  };
+
   const onChangeBaudRate = (e: {
     target: { value: React.SetStateAction<string> };
   }) => {
@@ -38,8 +58,15 @@ const CommSetting = () => {
         <div className="comm_elements">
           <div className="comm_element">
             <div className="comm_item">ComPort</div>
-            <select id="comport" className="comm_input">
+            <select
+              id="comport"
+              onChange={onChangeComport}
+              className="comm_input"
+            >
               <option>Select Port!!!</option>
+              {list.map((port) => {
+                return <option key={port.toString()}>{port}</option>;
+              })}
             </select>
           </div>
           <div className="comm_element">

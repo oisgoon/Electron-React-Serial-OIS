@@ -1,15 +1,13 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import '../scss/ReceivePanel.scss';
 import Console from 'lib/console';
 import ReceiveList from './ReceiveList';
 
 const ReceivePanel = () => {
-  const [receiveData, setReceiveData] = React.useState('test');
-
-  const state = { logs: '' };
+  const [receiveData, setReceiveData] = useState('');
 
   const onReset = () => {
-    setReceiveData('');
+    // setReceiveData('');
     window.electron.ipcRenderer.send('reset', 'reset');
   };
 
@@ -17,10 +15,13 @@ const ReceivePanel = () => {
     window.electron.ipcRenderer.send('save', 'save');
   };
 
-  window.electron.ipcRenderer.receive('read_data', (data: any) => {
-    // setReceiveData(data);
-    state.logs = state.logs.concat(data);
-  });
+  useEffect(() => {
+    window.electron.ipcRenderer.receiveOnce('read_data', (data: any) => {
+      setReceiveData(`${receiveData}\r\n${data}`);
+      Console.log(data);
+      // state.logs = state.logs.concat(data);
+    });
+  }, [receiveData]);
 
   return (
     <div className="receive_panel">
@@ -36,9 +37,7 @@ const ReceivePanel = () => {
         </div>
       </div>
       <fieldset className="receive_panel_border">
-        <div className="receive_data">
-          <ReceiveList />
-        </div>
+        <div className="receive_data">{receiveData}</div>
       </fieldset>
     </div>
   );

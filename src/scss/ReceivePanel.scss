@@ -59,6 +59,8 @@ $background_color: rgb(80, 80, 80);
   border-radius: 5px;
 
   background-color: rgb(20, 20, 20);
+
+  overflow: hidden;
 }
 
 .receive_data {
@@ -69,19 +71,20 @@ $background_color: rgb(80, 80, 80);
   font-size: 1em;
   font-family: 'Malgun Gothic';
 
-  overflow: hidden;
-  overflow-y: auto;
-  transition: overflow 2s;
+  // overflow: hidden;
+  // overflow-y: auto;
+  // transition: overflow 2s;
 
   border: none;
   background-color: rgb(20, 20, 20);
 
   resize: none;
-}
-
-.receive_data:hover {
   overflow-y: scroll;
 }
+
+// .receive_data:hover {
+
+// }
 
 .receive_data::-webkit-scrollbar {
   width: 15px;
@@ -89,15 +92,36 @@ $background_color: rgb(80, 80, 80);
 }
 
 .receive_data::-webkit-scrollbar-thumb {
-  background-color: rgb(120, 120, 120);
+  background-color: rgba(200, 200, 200, 0.6);
   border-radius: 15px;
 }
 
 .receive_data::-webkit-scrollbar-thumb:hover {
   background-color: rgb(200, 200, 200);
+  animation: fadeIn 2s linear;
 }
 
 .receive_data::-webkit-scrollbar-track {
   background-color: rgb(80, 80, 80);
   border-radius: 15px;
+}
+
+@keyframes fadeIn {
+  from {
+    background-color: rgba(200, 200, 200, 0);
+    opacity: 0;
+  }
+  to {
+    background-color: rgba(200, 200, 200, 1);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    background-color: rgba(200, 200, 200, 1);
+  }
+  to {
+    background-color: rgba(200, 200, 200, 0);
+  }
 }

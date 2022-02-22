@@ -11,6 +11,9 @@ contextBridge.exposeInMainWorld('electron', {
     receive(channel, func) {
       ipcRenderer.on(channel, (event, ...args) => func(...args));
     },
+    receiveOnce(channel, func) {
+      ipcRenderer.once(channel, (event, ...args) => func(...args));
+    },
     on(channel, func) {
       const validChannels = ['ipc-example'];
       if (validChannels.includes(channel)) {

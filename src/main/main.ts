@@ -14,15 +14,25 @@ import path from 'path';
 import { app, BrowserWindow, shell, ipcMain } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
+import { error } from 'console';
 import MenuBuilder from './menu';
 import { resolveHtmlPath } from './util';
 
 const { SerialPort } = require('serialport');
-const { DelimiterParser } = require('@serialport/parser-delimiter');
-// const { ReadlineParser } = require('@serialport/parser-readline');
+// const { DelimiterParser } = require('@serialport/parser-delimiter');
+const { ReadlineParser } = require('@serialport/parser-readline');
 
-const port = new SerialPort({ path: 'COM6', baudRate: 9600 });
+let port: {
+  close: (arg0: () => void) => void;
+  pipe: (arg0: any) => any;
+  write: (arg0: string) => void;
+};
+let comport: string;
 let parser;
+let baudrate = 9600;
+let databits = 8;
+let paritybits = 'none';
+let stopbit = 1;
 
 export default class AppUpdater {
   constructor() {
@@ -145,12 +155,29 @@ app
   })
   .catch(console.log);
 
-ipcMain.on('minimize', (event, data) => {
+ipcMain.on('loading', (event) => {
+  console.log(`comport list loading...`);
+  SerialPort.list()
+    .then((ports: any) => {
+      console.log(ports);
+      event.reply(
+        'loading_data',
+        ports.map(
+          // eslint-disable-next-line @typescript-eslint/no-shadow
+          (port: { path: string; manufacturer: string }) =>
+            `${port.path} ${port.manufacturer}`
+        )
+      );
+    })
+    .catch(error);
+});
+
+ipcMain.on('minimize', (_event, data) => {
   console.log(data);
   mainWindow.minimize();
 });
 
-ipcMain.on('maximize', (event, data) => {
+ipcMain.on('maximize', (_event, data) => {
   console.log(data);
   if (mainWindow.isMaximized()) {
     mainWindow.restore();
@@ -159,52 +186,75 @@ ipcMain.on('maximize', (event, data) => {
   }
 });
 
-ipcMain.on('close', (event, data) => {
+ipcMain.on('close', (_event, data) => {
   console.log(data);
   mainWindow.close();
 });
 
 ipcMain.on('connect', (event, data) => {
   console.log(data);
-  parser = port.pipe(new DelimiterParser({ delimiter: '\n' }));
+  if (data === 'Connect') {
+    port = new SerialPort({
+      path: comport,
+      baudRate: baudrate,
+      dataBits: databits,
+      stopBit: stopbit,
+      parityBits: paritybits,
+    });
+  } else {
+    port.close(() => {});
+  }
+
+  // parser = port.pipe(new DelimiterParser({ delimiter: '\n' }));
+  parser = port.pipe(new ReadlineParser({ delimiter: '\n' }));
 
   parser.on('data', (parserData: any) => {
-    // console.log('Data:', parserData);
+    console.log('Data:', parserData);
     // event.reply('read_data', parserData.toString('utf-8'));
     event.reply('read_data', `${parserData}\n`);
   });
   // parser.on('data', console.log);
 });
 
-ipcMain.on('start', (event, data) => {
+ipcMain.on('start', (_event, data) => {
   console.log(`start : ${data}`);
 });
 
-ipcMain.on('reset', (event, data) => {
+ipcMain.on('reset', (_event, data) => {
   console.log(`reset : ${data}`);
 });
 
-ipcMain.on('save', (event, data) => {
+ipcMain.on('save', (_event, data) => {
   console.log(`save : ${data}`);
 });
 
-ipcMain.on('send_data', (event, data) => {
+ipcMain.on('send_data', (_event, data) => {
   console.log(`send_data : ${data}`);
   port.write(`${data}\n`);
 });
 
-ipcMain.on('baudrate', (event, data) => {
-  console.log(`baudrate : ${data}`);
+ipcMain.on('comport', (_event, data: string) => {
+  const [array] = data.split(' ');
+  comport = array;
+  console.log(`comport : ${comport}`);
 });
 
-ipcMain.on('databits', (event, data) => {
-  console.log(`databits : ${data}`);
+ipcMain.on('baudrate', (_event, data: number) => {
+  baudrate = Number(data);
+  console.log(`baudrate : ${baudrate}`);
 });
 
-ipcMain.on('parity', (event, data) => {
-  console.log(`parity : ${data}`);
+ipcMain.on('databits', (_event, data: number) => {
+  databits = Number(data);
+  console.log(`databits : ${databits}`);
 });
 
-ipcMain.on('stopbits', (event, data) => {
-  console.log(`stopbits : ${data}`);
+ipcMain.on('parity', (_event, data: string) => {
+  paritybits = String(data);
+  console.log(`parity : ${paritybits}`);
+});
+
+ipcMain.on('stopbits', (_event, data: number) => {
+  stopbit = Number(data);
+  console.log(`stopbits : ${stopbit}`);
 });
