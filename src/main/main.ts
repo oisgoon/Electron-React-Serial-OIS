@@ -205,19 +205,20 @@ ipcMain.on('connect', (event, data) => {
     port.close(() => {});
   }
 
-  // parser = port.pipe(new DelimiterParser({ delimiter: '\n' }));
   parser = port.pipe(new ReadlineParser({ delimiter: '\n' }));
 
   parser.on('data', (parserData: any) => {
     console.log('Data:', parserData);
-    // event.reply('read_data', parserData.toString('utf-8'));
-    event.reply('read_data', `${parserData}\n`);
+    event.reply('read_data', `${parserData}`);
   });
-  // parser.on('data', console.log);
 });
 
 ipcMain.on('start', (_event, data) => {
   console.log(`start : ${data}`);
+});
+
+ipcMain.on('time', (_event, data) => {
+  console.log(`time : ${data}`);
 });
 
 ipcMain.on('reset', (_event, data) => {

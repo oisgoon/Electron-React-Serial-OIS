@@ -1,13 +1,30 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import '../scss/ReceivePanel.scss';
 import Console from 'lib/console';
-import ReceiveList from './ReceiveList';
 
 const ReceivePanel = () => {
-  const [receiveData, setReceiveData] = useState('');
+  const [receiveData, setReceiveData] = useState<string[]>([]);
+  let messageEnd: { scrollIntoView: (arg0: { behavior: string }) => void };
+
+  const scrollToBottom = () => {
+    messageEnd.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  const time = new Date();
+  const timeStamp = time.getTime();
+
+  const scrollRef = useRef();
+
+  const onChangeHandler = () => {};
+
+  // $('#receive_data').scrollTop($('#receive_data')[0].scrollHeight);
+
+  const onTime = () => {
+    window.electron.ipcRenderer.send('time', 'time');
+  };
 
   const onReset = () => {
-    // setReceiveData('');
+    setReceiveData(receiveData.splice(0, receiveData.length));
     window.electron.ipcRenderer.send('reset', 'reset');
   };
 
@@ -17,27 +34,39 @@ const ReceivePanel = () => {
 
   useEffect(() => {
     window.electron.ipcRenderer.receiveOnce('read_data', (data: any) => {
-      setReceiveData(`${receiveData}\r\n${data}`);
-      Console.log(data);
+      setReceiveData(receiveData.concat(data));
+      scrollToBottom();
+      // setReceiveData(`${receiveData}${data}`);
       // state.logs = state.logs.concat(data);
     });
-  }, [receiveData]);
+  }, [receiveData, scrollToBottom]);
 
   return (
     <div className="receive_panel">
       <div className="receive_panel_title">
         Receive Data
         <div className="buttons">
-          <button type="button" onClick={onReset} className="reset_button">
+          <div className="chk_botton">
+            <input type="checkbox" onClick={onTime} />
+            <div className="chk_botton_title">Time</div>
+          </div>
+          <button type="button" onClick={onReset} className="button">
             Reset
           </button>
-          <button type="button" onClick={onSave} className="reset_button">
+          <button type="button" onClick={onSave} className="button">
             Save
           </button>
         </div>
       </div>
       <fieldset className="receive_panel_border">
-        <div className="receive_data">{receiveData}</div>
+        <textarea
+          ref={(el: any) => {
+            messageEnd = el;
+          }}
+          value={receiveData.join('')}
+          onChange={onChangeHandler}
+          className="receive_data"
+        />
       </fieldset>
     </div>
   );

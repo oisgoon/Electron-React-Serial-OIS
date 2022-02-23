@@ -28,7 +28,7 @@ $background_color: rgb(80, 80, 80);
   width: 60%;
 }
 
-.reset_button {
+.button {
   width: 30%;
 
   font-size: 2vmin;
@@ -39,6 +39,26 @@ $background_color: rgb(80, 80, 80);
   background-color: $background_color;
 
   cursor: pointer;
+}
+
+.chk_botton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 30%;
+
+  font-size: 2vmin;
+
+  margin-right: 3%;
+
+  color: white;
+
+  cursor: pointer;
+}
+
+.chk_botton_title {
+  margin-left: 5%;
 }
 
 .receive_panel_border {
@@ -71,10 +91,6 @@ $background_color: rgb(80, 80, 80);
   font-size: 1em;
   font-family: 'Malgun Gothic';
 
-  // overflow: hidden;
-  // overflow-y: auto;
-  // transition: overflow 2s;
-
   border: none;
   background-color: rgb(20, 20, 20);
 
@@ -82,11 +98,8 @@ $background_color: rgb(80, 80, 80);
   overflow-y: scroll;
 }
 
-// .receive_data:hover {
-
-// }
-
 .receive_data::-webkit-scrollbar {
+  flex-direction: column_reverse;
   width: 15px;
   border-radius: 15px;
 }
