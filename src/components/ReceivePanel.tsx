@@ -1,23 +1,29 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { useSelector } from 'react-redux';
 import '../scss/ReceivePanel.scss';
 import Console from 'lib/console';
 
 const ReceivePanel = () => {
   const [receiveData, setReceiveData] = useState<string[]>([]);
-  let messageEnd: { scrollIntoView: (arg0: { behavior: string }) => void };
-
+  const foo = useRef(null);
   const time = new Date();
+  const scrollRef: React.MutableRefObject<any> = useRef();
+  const [scrollY, setScrollY] = useState<number>(0);
 
-  const onChangeHandler = () => {};
+  const listener = () => {
+    setScrollY(window.pageYOffset);
+  };
 
-  // $('#receive_data').scrollTop($('#receive_data')[0].scrollHeight);
+  const onChangeScroll = () => {
+    listener();
+  };
 
   const onTime = () => {
     window.electron.ipcRenderer.send('time', 'time');
   };
 
   const onReset = () => {
-    setReceiveData(receiveData.splice(0, receiveData.length));
+    setReceiveData([]);
     window.electron.ipcRenderer.send('reset', 'reset');
   };
 
@@ -26,10 +32,12 @@ const ReceivePanel = () => {
   };
 
   useEffect(() => {
+    window.addEventListener('scroll', listener);
     window.electron.ipcRenderer.receiveOnce('read_data', (data: any) => {
       setReceiveData(receiveData.concat(data));
-      // setReceiveData(`${receiveData}${data}`);
-      // state.logs = state.logs.concat(data);
+      return () => {
+        window.removeEventListener('scroll', listener);
+      };
     });
   }, [receiveData]);
 
@@ -52,11 +60,9 @@ const ReceivePanel = () => {
       </div>
       <fieldset className="receive_panel_border">
         <textarea
-          ref={(el: any) => {
-            messageEnd = el;
-          }}
+          ref={scrollRef}
           value={receiveData.join('')}
-          onChange={onChangeHandler}
+          onChange={onChangeScroll}
           className="receive_data"
         />
       </fieldset>
