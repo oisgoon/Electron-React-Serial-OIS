@@ -93,6 +93,8 @@ const createWindow = async () => {
     width: 800,
     height: 600,
     frame: false,
+    minWidth: 600,
+    minHeight: 500,
     // resizable: false,
     icon: getAssetPath('icon_red.png'),
     webPreferences: {
@@ -229,9 +231,21 @@ ipcMain.on('save', (_event, data) => {
   console.log(`save : ${data}`);
 });
 
+ipcMain.on('CR_Check', (_event, data) => {
+  console.log(`CR_Check : ${data}`);
+});
+
+ipcMain.on('LF_Check', (_event, data) => {
+  console.log(`LF_Check : ${data}`);
+});
+
 ipcMain.on('send_data', (_event, data) => {
   console.log(`send_data : ${data}`);
   port.write(`${data}\n`);
+});
+
+ipcMain.on('send_type', (_event, data) => {
+  console.log(`send_type : ${data}`);
 });
 
 ipcMain.on('comport', (_event, data: string) => {

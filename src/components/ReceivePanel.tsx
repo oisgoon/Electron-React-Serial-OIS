@@ -6,14 +6,7 @@ const ReceivePanel = () => {
   const [receiveData, setReceiveData] = useState<string[]>([]);
   let messageEnd: { scrollIntoView: (arg0: { behavior: string }) => void };
 
-  const scrollToBottom = () => {
-    messageEnd.scrollIntoView({ behavior: 'smooth' });
-  };
-
   const time = new Date();
-  const timeStamp = time.getTime();
-
-  const scrollRef = useRef();
 
   const onChangeHandler = () => {};
 
@@ -35,11 +28,10 @@ const ReceivePanel = () => {
   useEffect(() => {
     window.electron.ipcRenderer.receiveOnce('read_data', (data: any) => {
       setReceiveData(receiveData.concat(data));
-      scrollToBottom();
       // setReceiveData(`${receiveData}${data}`);
       // state.logs = state.logs.concat(data);
     });
-  }, [receiveData, scrollToBottom]);
+  }, [receiveData]);
 
   return (
     <div className="receive_panel">
