@@ -1,16 +1,12 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect, useRef, useState } from 'react';
 import '../scss/ReceivePanel.scss';
 import Console from 'lib/console';
 
 const ReceivePanel = () => {
   const [receiveData, setReceiveData] = useState<string[]>([]);
-  const scrollRef = useRef();
-  const [scrollY, setScrollY] = useState<number>(0);
+  const scrollRef = useRef<any>();
 
-  const listener = () => {
-    setScrollY(window.pageYOffset);
-  };
+  const onChange = () => {};
 
   const onTime = () => {
     window.electron.ipcRenderer.send('time', 'time');
@@ -26,9 +22,10 @@ const ReceivePanel = () => {
   };
 
   useEffect(() => {
-    window.addEventListener('scroll', listener);
+    // window.addEventListener('scroll', listener);
     window.electron.ipcRenderer.receiveOnce('read_data', (data: any) => {
       setReceiveData(receiveData.concat(data));
+      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
       return () => {
         // window.removeEventListener('scroll', listener);
         // onChangeScroll();
@@ -57,7 +54,7 @@ const ReceivePanel = () => {
         <textarea
           ref={scrollRef}
           value={receiveData.join('')}
-          // onChange={onChangeScroll}
+          onChange={onChange}
           className="receive_data"
         />
       </fieldset>
