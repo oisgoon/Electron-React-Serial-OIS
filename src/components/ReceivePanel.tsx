@@ -1,6 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import '../scss/ReceivePanel.scss';
-import Console from 'lib/console';
 
 const ReceivePanel = () => {
   const [receiveData, setReceiveData] = useState<string[]>([]);
@@ -22,14 +21,9 @@ const ReceivePanel = () => {
   };
 
   useEffect(() => {
-    // window.addEventListener('scroll', listener);
     window.electron.ipcRenderer.receiveOnce('read_data', (data: any) => {
       setReceiveData(receiveData.concat(data));
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
-      return () => {
-        // window.removeEventListener('scroll', listener);
-        // onChangeScroll();
-      };
     });
   }, [receiveData]);
 

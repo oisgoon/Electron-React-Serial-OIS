@@ -1,8 +1,11 @@
 import React from 'react';
 import '../scss/SendForm.scss';
+import Console from 'lib/console';
 
 const SendForm = () => {
   const [sendData, setSendData] = React.useState('');
+
+  const AutoCheck = () => {};
 
   const onChangeType = (e: {
     target: { value: React.SetStateAction<string> };
@@ -17,6 +20,7 @@ const SendForm = () => {
   const onChange = (e: any) => {
     const { value } = e.target;
     setSendData(value);
+    Console.log(value);
   };
 
   const CRCheck = () => {

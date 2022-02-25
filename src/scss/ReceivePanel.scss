@@ -73,7 +73,6 @@ $background_color: rgb(80, 80, 80);
   padding: 3%;
 
   font-size: 2vmin;
-  // border: solid 1px rgb(227, 21, 74, 0.6);
   border: solid 1px rgb(80, 80, 80);
 
   border-radius: 5px;
@@ -95,7 +94,9 @@ $background_color: rgb(80, 80, 80);
   background-color: rgb(20, 20, 20);
 
   resize: none;
+  word-break: break-all;
   overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 .receive_data::-webkit-scrollbar {
