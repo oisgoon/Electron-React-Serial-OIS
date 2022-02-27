@@ -41,6 +41,12 @@ $background_color: rgb(80, 80, 80);
   cursor: pointer;
 }
 
+.time_label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .chk_botton {
   display: flex;
   align-items: center;
