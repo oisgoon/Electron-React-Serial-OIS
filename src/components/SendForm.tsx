@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import '../scss/SendForm.scss';
 import Console from 'lib/console';
 
-const SendForm = () => {
+const SendForm = ({ sendBtn }: any) => {
   const [sendData, setSendData] = useState<string>('');
+  const [autoCheck, setAutoCheck] = useState(false);
   const [CR, setCR] = useState<string>('');
   const [LF, setLF] = useState<string>('');
 
@@ -67,9 +68,14 @@ const SendForm = () => {
   return (
     <div className="send_form">
       <div className="auto_chk">
-        <input type="radio" name="auto" />
+        <input type="radio" name="auto" onClick={AutoCheck} />
       </div>
-      <button type="button" onClick={onSendData} className="send_button">
+      <button
+        type="button"
+        onClick={onSendData}
+        disabled={sendBtn}
+        className="send_button"
+      >
         Send
       </button>
       <div className="cr_btn">

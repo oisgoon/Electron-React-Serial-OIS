@@ -1,7 +1,7 @@
 import SendForm from './SendForm';
 import '../scss/SendPanel.scss';
 
-const SendPanel = () => {
+const SendPanel = ({ sendBtn }: any) => {
   return (
     <div className="send_panel">
       <div className="send_panel_title">Send Data</div>
@@ -14,13 +14,13 @@ const SendPanel = () => {
           <div className="type">Type</div>
           <div className="data">Data</div>
         </div>
-        <SendForm />
-        <SendForm />
-        <SendForm />
-        <SendForm />
-        <SendForm />
-        <SendForm />
-        <SendForm />
+        <SendForm sendBtn={sendBtn} />
+        <SendForm sendBtn={sendBtn} />
+        <SendForm sendBtn={sendBtn} />
+        <SendForm sendBtn={sendBtn} />
+        <SendForm sendBtn={sendBtn} />
+        <SendForm sendBtn={sendBtn} />
+        <SendForm sendBtn={sendBtn} />
       </fieldset>
     </div>
   );

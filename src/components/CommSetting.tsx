@@ -2,9 +2,10 @@ import Console from 'lib/console';
 import React, { useEffect, useState } from 'react';
 import '../scss/CommSetting.scss';
 
-const CommSetting = () => {
+const CommSetting = ({ portCallback }: any) => {
   const [list, setList] = useState<string[]>(['']);
   const [delay, setDelay] = useState<string>('0');
+  // const [portSelect, setPortSelect] = useState(false);
 
   useEffect(() => {
     window.electron.ipcRenderer.send('loading');
@@ -22,6 +23,8 @@ const CommSetting = () => {
   }) => {
     Console.log(e.target.value);
     window.electron.ipcRenderer.send('comport', e.target.value);
+    // setPortSelect(false);
+    portCallback(false);
   };
 
   const onChangeBaudRate = (e: {
@@ -85,7 +88,7 @@ const CommSetting = () => {
               onChange={onChangeComport}
               className="comm_input"
             >
-              <option>Select Port!!!</option>
+              <option hidden>Select Port!!!</option>
               {list.map((port) => {
                 return <option key={port.toString()}>{port}</option>;
               })}
