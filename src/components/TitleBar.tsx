@@ -20,7 +20,9 @@ const TitleBar = () => {
       <div className="program_icon">
         <img width="32px" alt="icon" src={icon} />
       </div>
-      <div className="title">Communication Test - Client - OIS</div>
+      <div className="title">
+        Serial Communication - OIS - 1.0.0 [2022.03.02]
+      </div>
       <div className="control_btn">
         <MinimizeBtn />
         <MaximizeBtn />

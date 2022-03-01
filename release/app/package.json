@@ -1,12 +1,12 @@
 {
-  "name": "electron-react-boilerplate",
-  "version": "4.5.0",
+  "name": "serial-communication-ois",
+  "version": "1.0.0",
   "description": "A foundation for scalable desktop apps",
   "main": "./dist/main/main.js",
   "author": {
-    "name": "Electron React Boilerplate Maintainers",
-    "email": "electronreactboilerplate@gmail.com",
-    "url": "https://github.com/electron-react-boilerplate"
+    "name": "OIS",
+    "email": "oinse719@gmail.com",
+    "url": "https://github.com/oisgoon/electron-react-boilerplate-client"
   },
   "scripts": {
     "electron-rebuild": "node -r ts-node/register ../../.erb/scripts/electron-rebuild.js",
