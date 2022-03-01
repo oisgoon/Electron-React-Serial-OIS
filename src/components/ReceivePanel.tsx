@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import '../scss/ReceivePanel.scss';
 import Console from 'lib/console';
 
@@ -6,76 +6,43 @@ const ReceivePanel = () => {
   const [receiveData, setReceiveData] = useState<string[]>([]);
   const [timeStamp, setTimeStamp] = useState<string>('');
   const [timeStampUse, onTimeStampUse] = useState<boolean>(false);
-  const [lineControl, setLineControl] = useState<string>('');
+  const [CR, setCR] = useState<string>('');
+  const [LF, setLF] = useState<string>('');
+
   const scrollRef = useRef<any>();
+
+  const today = new Date();
+
+  const year = String(today.getFullYear());
+  const month = String(today.getMonth());
+  const date = String(today.getDate());
+  const hours = String(today.getHours());
+  const minutes = String(today.getMinutes());
+  const seconds = String(today.getSeconds());
+  const milliseconds = String(today.getMilliseconds());
 
   const onChange = () => {};
 
-  const timeStampChange = () => {
-    if (timeStampUse) {
-      const today = new Date();
-
-      const year = String(today.getFullYear());
-      const month = String(today.getMonth());
-      const date = String(today.getDate());
-      const day = today.getDay();
-      const hours = String(today.getHours());
-      const minutes = String(today.getMinutes());
-      const seconds = String(today.getSeconds());
-      const milliseconds = String(today.getMilliseconds());
-      let strDay;
-
-      switch (day) {
-        case 0:
-          strDay = 'Sun';
-          break;
-        case 1:
-          strDay = 'Mon';
-          break;
-        case 2:
-          strDay = 'Tus';
-          break;
-        case 3:
-          strDay = 'Wed';
-          break;
-        case 4:
-          strDay = 'Thu';
-          break;
-        case 5:
-          strDay = 'Fri';
-          break;
-        case 6:
-          strDay = 'Sat';
-          break;
-        default:
-          break;
-      }
-
-      setTimeStamp(
-        `[${year.padStart(4)}/${month.padStart(2, '0')}/${date.padStart(
-          2,
-          '0'
-        )}/${strDay}/${hours.padStart(2, '0')}:${minutes.padStart(
-          2,
-          '0'
-        )}:${seconds.padStart(2, '0')}:${milliseconds.padStart(3, '0')}] `
-      );
-    } else {
-      setTimeStamp('');
-    }
-  };
+  const timeStampChange = useCallback(() => {
+    setTimeStamp(
+      `[${year.padStart(4)}/${month.padStart(2, '0')}/${date.padStart(
+        2,
+        '0'
+      )}/${hours.padStart(2, '0')}:${minutes.padStart(
+        2,
+        '0'
+      )}:${seconds.padStart(2, '0')}:${milliseconds.padStart(3, '0')}] `
+    );
+  }, [date, hours, milliseconds, minutes, month, seconds, year]);
 
   const onTimeStamp = () => {
-    window.electron.ipcRenderer.send('time', 'time');
-    if (lineControl === '') {
-      setLineControl('\n');
+    if (timeStampUse === false) {
       onTimeStampUse(true);
-      timeStampChange();
     } else {
-      setLineControl('');
       onTimeStampUse(false);
       setTimeStamp('');
     }
+    window.electron.ipcRenderer.send('time', 'time');
   };
 
   const onReset = () => {
@@ -83,8 +50,26 @@ const ReceivePanel = () => {
     window.electron.ipcRenderer.send('reset', 'reset');
   };
 
-  const onSave = () => {
-    window.electron.ipcRenderer.send('save', 'save');
+  // const onSave = () => {
+  //   window.electron.ipcRenderer.send('save', 'save');
+  // };
+
+  const CRCheck = () => {
+    window.electron.ipcRenderer.send('CR_Check', 'CR_Check');
+    if (CR === '') {
+      setCR(`\r`);
+    } else {
+      setCR(``);
+    }
+  };
+
+  const LFCheck = () => {
+    window.electron.ipcRenderer.send('LF_Check', 'LF_Check');
+    if (LF === '') {
+      setLF(`\n`);
+    } else {
+      setLF(``);
+    }
   };
 
   useEffect(() => {
@@ -92,35 +77,42 @@ const ReceivePanel = () => {
       setReceiveData(receiveData.concat(`${timeStamp}${data}`));
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
     });
-    return () => {
+    if (timeStampUse === true) {
       timeStampChange();
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [receiveData, timeStamp]);
+    }
+  }, [receiveData, timeStamp, timeStampChange, timeStampUse]);
 
   return (
     <div className="receive_panel">
       <div className="receive_panel_title">
         Receive Data
         <div className="buttons">
-          <div className="chk_botton">
+          <div className="cr_btn_receive">
+            <input type="checkbox" onClick={CRCheck} />
+            <div>CR</div>
+          </div>
+          <div className="lf_btn_receive">
+            <input type="checkbox" onClick={LFCheck} />
+            <div>LF</div>
+          </div>
+          {/* <div className="chk_botton">
             <label htmlFor="time" className="time_label">
               <input type="checkbox" onClick={onTimeStamp} id="time" />
               <div className="chk_botton_title">Time</div>
             </label>
-          </div>
+          </div> */}
           <button type="button" onClick={onReset} className="button">
             Reset
           </button>
-          <button type="button" onClick={onSave} className="button">
+          {/* <button type="button" onClick={onSave} className="button">
             Save
-          </button>
+          </button> */}
         </div>
       </div>
       <fieldset className="receive_panel_border">
         <textarea
           ref={scrollRef}
-          value={receiveData.join(`${lineControl}`)}
+          value={receiveData.join(`${CR}${LF}`)}
           onChange={onChange}
           className="receive_data"
         />

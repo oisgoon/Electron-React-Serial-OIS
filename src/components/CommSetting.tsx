@@ -4,6 +4,7 @@ import '../scss/CommSetting.scss';
 
 const CommSetting = () => {
   const [list, setList] = useState<string[]>(['']);
+  const [delay, setDelay] = useState<string>('0');
 
   useEffect(() => {
     window.electron.ipcRenderer.send('loading');
@@ -49,6 +50,27 @@ const CommSetting = () => {
   }) => {
     Console.log(e.target.value);
     window.electron.ipcRenderer.send('stopbits', e.target.value);
+  };
+
+  const onChangeDelay = (e: any) => {
+    let { value } = e.target;
+    // setSendData(value);
+    value = value.replace(/[^0-9]/g, '');
+
+    setDelay(value);
+
+    if (Number(value) > 60000) {
+      setDelay('60000');
+    } else if (Number(value) > 0) {
+      setDelay(value.replace(/(^0+)/, ''));
+    } else if (value === '00') {
+      setDelay('0');
+    } else if (value === '') {
+      setDelay('0');
+    }
+
+    Console.log(delay);
+    Console.log(value);
   };
 
   return (
@@ -124,7 +146,12 @@ const CommSetting = () => {
           </div>
           <div className="comm_element">
             <div className="comm_item">Delay (ms)</div>
-            <input id="delay" className="comm_input" defaultValue="0" />
+            <input
+              id="delay"
+              value={delay}
+              onChange={onChangeDelay}
+              className="comm_input"
+            />
           </div>
         </div>
       </fieldset>
