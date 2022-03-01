@@ -1,14 +1,42 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import '../scss/SendForm.scss';
 import Console from 'lib/console';
 
-const SendForm = ({ sendBtn }: any) => {
+let autoSendInterval: any;
+
+const SendForm = ({
+  sendBtn,
+  id,
+  autoSendIDCallBack,
+  autoSendStart,
+  autoSendStartID,
+  delay,
+}: any) => {
   const [sendData, setSendData] = useState<string>('');
   const [autoCheck, setAutoCheck] = useState(false);
   const [CR, setCR] = useState<string>('');
   const [LF, setLF] = useState<string>('');
 
-  const AutoCheck = () => {};
+  const autoSend = () => {
+    if (id === autoSendStartID) {
+      if (autoSendStart === true) {
+        autoSendInterval = setInterval(function () {
+          window.electron.ipcRenderer.send('send_data', sendData + CR + LF);
+        }, delay);
+      } else {
+        clearInterval(autoSendInterval);
+      }
+    }
+  };
+
+  useEffect(() => {
+    autoSend();
+  });
+
+  const isAutoCheck = () => {
+    Console.log(`Send ID : ${id}`);
+    autoSendIDCallBack(id);
+  };
 
   const onChangeType = (e: {
     target: { value: React.SetStateAction<string> };
@@ -68,7 +96,12 @@ const SendForm = ({ sendBtn }: any) => {
   return (
     <div className="send_form">
       <div className="auto_chk">
-        <input type="radio" name="auto" onClick={AutoCheck} />
+        <input
+          type="radio"
+          name="auto"
+          onClick={isAutoCheck}
+          disabled={sendBtn}
+        />
       </div>
       <button
         type="button"
@@ -79,16 +112,21 @@ const SendForm = ({ sendBtn }: any) => {
         Send
       </button>
       <div className="cr_btn">
-        <input type="checkbox" onClick={CRCheck} />
+        <input type="checkbox" onClick={CRCheck} disabled={sendBtn} />
       </div>
       <div className="lf_btn">
-        <input type="checkbox" onClick={LFCheck} />
+        <input type="checkbox" onClick={LFCheck} disabled={sendBtn} />
       </div>
-      <select onChange={onChangeType} className="data_type">
+      <select onChange={onChangeType} disabled={sendBtn} className="data_type">
         <option value="ASC">ASC</option>
         <option value="HEX">HEX</option>
       </select>
-      <input value={sendData} onChange={onChange} className="data_input" />
+      <input
+        value={sendData}
+        onChange={onChange}
+        disabled={sendBtn}
+        className="data_input"
+      />
     </div>
   );
 };

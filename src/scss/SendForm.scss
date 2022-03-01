@@ -95,3 +95,7 @@ input.data_input {
   color: white;
   background-color: $background_color;
 }
+
+input.data_input:disabled {
+  opacity: 0.7;
+}

@@ -2,7 +2,12 @@ import Console from 'lib/console';
 import React, { useEffect, useState } from 'react';
 import '../scss/CommSetting.scss';
 
-const CommSetting = ({ portCallback }: any) => {
+const CommSetting = ({
+  portCallback,
+  delayCallback,
+  settingOption,
+  delayInput,
+}: any) => {
   const [list, setList] = useState<string[]>(['']);
   const [delay, setDelay] = useState<string>('0');
   // const [portSelect, setPortSelect] = useState(false);
@@ -23,7 +28,6 @@ const CommSetting = ({ portCallback }: any) => {
   }) => {
     Console.log(e.target.value);
     window.electron.ipcRenderer.send('comport', e.target.value);
-    // setPortSelect(false);
     portCallback(false);
   };
 
@@ -71,9 +75,9 @@ const CommSetting = ({ portCallback }: any) => {
     } else if (value === '') {
       setDelay('0');
     }
-
-    Console.log(delay);
-    Console.log(value);
+    delayCallback(value);
+    // Console.log(delay);
+    // Console.log(value);
   };
 
   return (
@@ -84,6 +88,7 @@ const CommSetting = ({ portCallback }: any) => {
           <div className="comm_element">
             <div className="comm_item">ComPort</div>
             <select
+              disabled={settingOption}
               id="comport"
               onChange={onChangeComport}
               className="comm_input"
@@ -99,6 +104,7 @@ const CommSetting = ({ portCallback }: any) => {
             <select
               id="baudrate"
               onChange={onChangeBaudRate}
+              disabled={settingOption}
               className="comm_input"
             >
               <option value="9600">9600</option>
@@ -116,6 +122,7 @@ const CommSetting = ({ portCallback }: any) => {
             <select
               id="databits"
               onChange={onChangeDataBits}
+              disabled={settingOption}
               className="comm_input"
             >
               <option value="8">8</option>
@@ -127,6 +134,7 @@ const CommSetting = ({ portCallback }: any) => {
             <select
               id="parity"
               onChange={onChangeParityBits}
+              disabled={settingOption}
               className="comm_input"
             >
               <option value="none">None</option>
@@ -141,6 +149,7 @@ const CommSetting = ({ portCallback }: any) => {
             <select
               id="stopbit"
               onChange={onChangeStopBits}
+              disabled={settingOption}
               className="comm_input"
             >
               <option value="1">1</option>
@@ -153,6 +162,7 @@ const CommSetting = ({ portCallback }: any) => {
               id="delay"
               value={delay}
               onChange={onChangeDelay}
+              disabled={delayInput}
               className="comm_input"
             />
           </div>
