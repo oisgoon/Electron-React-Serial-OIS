@@ -24,8 +24,7 @@
 Clone the repo and install dependencies:
 
 ```bash
-git clone --depth 1 --branch main https://github.com/electron-react-boilerplate/electron-react-boilerplate.git your-project-name
-cd your-project-name
+git clone https://github.com/oisgoon/Electron-React-Serial-OIS.git
 npm install
 ```
 
@@ -58,13 +57,6 @@ See our [docs and guides here](https://electron-react-boilerplate.js.org/docs/in
 - 🔨 Long term maintenance of the project
 - 🛣 Progress on the [roadmap](https://electron-react-boilerplate.js.org/docs/roadmap)
 - 🐛 Quick responses to bug reports and help requests
-
-## Maintainers
-
-- [Amila Welihinda](https://github.com/amilajack)
-- [John Tran](https://github.com/jooohhn)
-- [C. T. Lin](https://github.com/chentsulin)
-- [Jhen-Jie Hong](https://github.com/jhen0409)
 
 ## License
 
