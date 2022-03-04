@@ -13,15 +13,7 @@
     "start:main": "cross-env NODE_ENV=development electron -r ts-node/register/transpile-only ./src/main/main.ts",
     "start:renderer": "cross-env NODE_ENV=development TS_NODE_TRANSPILE_ONLY=true webpack serve --config ./.erb/configs/webpack.config.renderer.dev.ts",
     "test": "jest",
-    "prepare": "husky install",
-    "deploy":"electron-builder --windows nsis:ia32",
-    "build:osx": "electron-builder --mac",
-    "build:linux": "npm run build:linux32 && npm run build:linux64",
-    "build:linux32": "electron-builder --linux --ia32",
-    "build:linux64": "electron-builder --linux --x64",
-    "build:win": "npm run build:win32 && npm run build:win64",
-    "build:win32": "electron-builder --win portable --ia32",
-    "build:win64": "electron-builder --win portable --x64"
+    "prepare": "husky install"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
@@ -38,7 +30,7 @@
     ]
   },
   "build": {
-    "productName": "serial-communication-ois",
+    "productName": "Electron-React-Serial-OIS",
     "appId": "org.erb.ElectronReact",
     "asar": true,
     "asarUnpack": "**\\*.{node,dll}",
@@ -77,6 +69,7 @@
       ]
     },
     "win": {
+      "icon": "assets/icon_red_256.png",
       "target": [
         "nsis"
       ]
@@ -101,31 +94,12 @@
       "repo": "electron-react-boilerplate"
     }
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/electron-react-boilerplate/electron-react-boilerplate.git"
-  },
   "author": {
     "name": "OIS",
     "email": "oinse719@gmail.com",
-    "url": "https://github.com/oisgoon/electron-react-boilerplate-client"
+    "url": "https://github.com/oisgoon/Electron-React-Serial-OIS"
   },
-  "contributors": [
-    {
-      "name": "Amila Welihinda",
-      "email": "amilajack@gmail.com",
-      "url": "https://github.com/amilajack"
-    },
-    {
-      "name": "John Tran",
-      "email": "jptran318@gmail.com",
-      "url": "https://github.com/jooohhn"
-    }
-  ],
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/electron-react-boilerplate/electron-react-boilerplate/issues"
-  },
   "keywords": [
     "electron",
     "boilerplate",
@@ -171,7 +145,6 @@
     "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/react": "^12.1.2",
     "@types/jest": "^27.0.3",
-    "@types/jquery": "^3.5.13",
     "@types/node": "17.0.5",
     "@types/react": "^17.0.38",
     "@types/react-dom": "^17.0.11",
@@ -240,12 +213,9 @@
     "history": "^5.2.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react-redux": "^7.2.6",
     "react-router-dom": "^6.2.1",
-    "redux": "^4.1.2",
     "regenerator-runtime": "^0.13.9",
-    "serialport": "^10.3.0",
-    "store-js": "^2.0.4"
+    "serialport": "^10.3.0"
   },
   "devEngines": {
     "node": ">=14.x",
