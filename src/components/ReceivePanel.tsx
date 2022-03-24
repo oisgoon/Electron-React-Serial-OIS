@@ -8,6 +8,7 @@ const ReceivePanel = () => {
   const [timeStampUse, onTimeStampUse] = useState<boolean>(false);
   const [CR, setCR] = useState<string>('');
   const [LF, setLF] = useState<string>('');
+  const [reset, setReset] = useState<boolean>(false);
 
   const scrollRef = useRef<any>();
 
@@ -46,6 +47,7 @@ const ReceivePanel = () => {
   };
 
   const onReset = () => {
+    setReset(true);
     setReceiveData([]);
     window.electron.ipcRenderer.send('reset', 'reset');
   };
@@ -73,14 +75,22 @@ const ReceivePanel = () => {
   };
 
   useEffect(() => {
+    if (reset === true) {
+      setReset(false);
+      window.electron.ipcRenderer.remove('read_data');
+    }
+
     window.electron.ipcRenderer.receiveOnce('read_data', (data: string) => {
-      setReceiveData(receiveData.concat(`${timeStamp}${data}`));
+      setReceiveData(receiveData.concat(`${data}`));
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
     });
-    if (timeStampUse === true) {
-      timeStampChange();
-    }
-  }, [receiveData, timeStamp, timeStampChange, timeStampUse]);
+    // return () => {
+    //   if (reset === true) {
+    //     setReset(false);
+    //     setReceiveData([]);
+    //   }
+    // };
+  }, [receiveData, reset]);
 
   return (
     <div className="receive_panel">
