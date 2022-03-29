@@ -50,14 +50,6 @@ npm run package
 
 See our [docs and guides here](https://electron-react-boilerplate.js.org/docs/installation)
 
-## Donations
-
-**Donations will ensure the following:**
-
-- 🔨 Long term maintenance of the project
-- 🛣 Progress on the [roadmap](https://electron-react-boilerplate.js.org/docs/roadmap)
-- 🐛 Quick responses to bug reports and help requests
-
 ## License
 
 MIT © [Electron React Boilerplate](https://github.com/electron-react-boilerplate)
