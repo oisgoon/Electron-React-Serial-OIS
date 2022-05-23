@@ -21,7 +21,7 @@ const TitleBar = () => {
         <img width="32px" alt="icon" src={icon} />
       </div>
       <div className="title">
-        Serial Communication - OIS - 1.0.1 [2022.03.24]
+        Serial Communication - OIS - 1.1.0 [2022.05.23]
       </div>
       <div className="control_btn">
         <MinimizeBtn />

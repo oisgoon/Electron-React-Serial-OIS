@@ -1,10 +1,8 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import '../../scss/ReceivePanel.scss';
-import Console from 'lib/console';
 
 const ReceivePanel = () => {
   const [receiveData, setReceiveData] = useState<string[]>([]);
-  const [timeStamp, setTimeStamp] = useState<string>('');
   const [timeStampUse, onTimeStampUse] = useState<boolean>(false);
   const [CR, setCR] = useState<string>('');
   const [LF, setLF] = useState<string>('');
@@ -38,7 +36,6 @@ const ReceivePanel = () => {
       onTimeStampUse(true);
     } else {
       onTimeStampUse(false);
-      setTimeStamp('');
     }
     window.electron.ipcRenderer.send('time', 'time');
   };
@@ -89,15 +86,15 @@ const ReceivePanel = () => {
         Receive Data
         <div className="buttons">
           <div className="cr_btn_receive">
-            <input type="checkbox" onClick={CRCheck} />
+            <input type="checkbox" onClick={CRCheck} className="chk_box" />
             <div>CR</div>
           </div>
           <div className="lf_btn_receive">
-            <input type="checkbox" onClick={LFCheck} />
+            <input type="checkbox" onClick={LFCheck} className="chk_box" />
             <div>LF</div>
           </div>
-          <div className="lf_btn_receive">
-            <input type="checkbox" onClick={onTimeStamp} />
+          <div className="reset_btn_receive">
+            <input type="checkbox" onClick={onTimeStamp} className="chk_box" />
             <div>Time</div>
           </div>
           <button type="button" onClick={onReset} className="button">
