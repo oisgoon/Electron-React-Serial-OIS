@@ -80,7 +80,7 @@ const CommSetting = ({
   return (
     <div className="comm_setting">
       <div className="comm_title">Comm Setting</div>
-      <fieldset className="comm_setting_border">
+      <div className="comm_setting_border">
         <div className="comm_elements">
           <div className="comm_element">
             <div className="comm_item">ComPort</div>
@@ -164,7 +164,7 @@ const CommSetting = ({
             />
           </div>
         </div>
-      </fieldset>
+      </div>
     </div>
   );
 };

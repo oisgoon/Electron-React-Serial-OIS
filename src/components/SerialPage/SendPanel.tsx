@@ -11,7 +11,7 @@ const SendPanel = ({
   return (
     <div className="send_panel">
       <div className="send_panel_title">Send Data</div>
-      <fieldset className="send_panel_border">
+      <div className="send_panel_border">
         <div className="option_label">
           <div className="auto">Auto</div>
           <div className="send" />
@@ -76,7 +76,7 @@ const SendPanel = ({
           autoSendStartID={autoSendStartID}
           delay={delay}
         />
-      </fieldset>
+      </div>
     </div>
   );
 };

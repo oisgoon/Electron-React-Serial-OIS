@@ -93,8 +93,8 @@ const createWindow = async () => {
     width: 800,
     height: 600,
     frame: false,
-    minWidth: 600,
-    minHeight: 500,
+    minWidth: 750,
+    minHeight: 570,
     // resizable: false,
     icon: getAssetPath('icon_red.png'),
     webPreferences: {

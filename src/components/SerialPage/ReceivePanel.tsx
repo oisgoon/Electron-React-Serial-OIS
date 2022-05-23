@@ -119,14 +119,14 @@ const ReceivePanel = () => {
           </button> */}
         </div>
       </div>
-      <fieldset className="receive_panel_border">
+      <div className="receive_panel_border">
         <textarea
           ref={scrollRef}
           value={receiveData.join(`${CR}${LF}`)}
           onChange={onChange}
           className="receive_data"
         />
-      </fieldset>
+      </div>
     </div>
   );
 };
