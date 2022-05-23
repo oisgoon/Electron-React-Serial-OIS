@@ -19,7 +19,6 @@ import MenuBuilder from './menu';
 import { resolveHtmlPath } from './util';
 
 const { SerialPort } = require('serialport');
-// const { DelimiterParser } = require('@serialport/parser-delimiter');
 const { ReadlineParser } = require('@serialport/parser-readline');
 
 let port: {

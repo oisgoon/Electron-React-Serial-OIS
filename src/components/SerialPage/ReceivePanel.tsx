@@ -12,7 +12,26 @@ const ReceivePanel = () => {
 
   const scrollRef = useRef<any>();
 
-  const onChange = () => {};
+  const fillZero = (width: number, str: string) => {
+    return str.length >= width
+      ? str
+      : new Array(width - str.length + 1).join('0') + str; // 남는 길이만큼 0으로 채움
+  };
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const currentTime = () => {
+    const today = new Date();
+
+    const year = fillZero(4, String(today.getFullYear()));
+    const month = fillZero(2, String(today.getMonth()));
+    const date = fillZero(2, String(today.getDate()));
+    const hours = fillZero(2, String(today.getHours()));
+    const minutes = fillZero(2, String(today.getMinutes()));
+    const seconds = fillZero(2, String(today.getSeconds()));
+    const milliseconds = fillZero(3, String(today.getMilliseconds()));
+
+    return `[${year}.${month}.${date}.${hours}.${minutes}.${seconds}.${milliseconds}] `;
+  };
 
   const onTimeStamp = () => {
     if (timeStampUse === false) {
@@ -55,10 +74,14 @@ const ReceivePanel = () => {
     }
 
     window.electron.ipcRenderer.receiveOnce('read_data', (data: string) => {
-      setReceiveData(receiveData.concat(`${data}${CR}${LF}`));
+      setReceiveData(
+        receiveData.concat(
+          `${timeStampUse ? currentTime() : ''}${data}${CR}${LF}`
+        )
+      );
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
     });
-  }, [CR, LF, receiveData, reset]);
+  }, [CR, LF, currentTime, receiveData, reset, timeStampUse]);
 
   return (
     <div className="receive_panel">
@@ -73,6 +96,10 @@ const ReceivePanel = () => {
             <input type="checkbox" onClick={LFCheck} />
             <div>LF</div>
           </div>
+          <div className="lf_btn_receive">
+            <input type="checkbox" onClick={onTimeStamp} />
+            <div>Time</div>
+          </div>
           <button type="button" onClick={onReset} className="button">
             Reset
           </button>
@@ -82,7 +109,6 @@ const ReceivePanel = () => {
         <textarea
           ref={scrollRef}
           value={receiveData.join('')}
-          onChange={onChange}
           className="receive_data"
         />
       </div>
