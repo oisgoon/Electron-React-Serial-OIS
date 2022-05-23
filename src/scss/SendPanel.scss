@@ -5,15 +5,14 @@ $title_color: rgb(160, 160, 160);
   flex-direction: column;
 
   width: 100%;
-  height: 55%;
+  height: 50%;
 }
 
 .send_panel_title {
   font-size: 2.5vmin;
 
-  margin-top: 10px;
   margin-left: 10px;
-  margin-bottom: 5px;
+  margin-bottom: 7px;
 
   color: $title_color;
 }
@@ -57,7 +56,8 @@ $title_color: rgb(160, 160, 160);
   width: 15%;
 }
 
-.cr, .lf {
+.cr,
+.lf {
   width: 8%;
 }
 
