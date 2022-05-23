@@ -1,5 +1,5 @@
-import '../scss/MinimizeBtn.scss';
-import Console from '../lib/console';
+import '../../scss/MinimizeBtn.scss';
+import Console from '../../lib/console';
 
 const onClickHandler = () => {
   Console.log('Minimize!!!');

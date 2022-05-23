@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import '../scss/ReceivePanel.scss';
+import '../../scss/ReceivePanel.scss';
 import Console from 'lib/console';
 
 const ReceivePanel = () => {

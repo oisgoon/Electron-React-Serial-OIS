@@ -1,6 +1,6 @@
 import Console from 'lib/console';
 import React, { useEffect, useState } from 'react';
-import '../scss/CommSetting.scss';
+import '../../scss/CommSetting.scss';
 
 const CommSetting = ({
   portCallback,
@@ -61,7 +61,6 @@ const CommSetting = ({
 
   const onChangeDelay = (e: any) => {
     let { value } = e.target;
-    // setSendData(value);
     value = value.replace(/[^0-9]/g, '');
 
     setDelay(value);
@@ -76,8 +75,6 @@ const CommSetting = ({
       setDelay('0');
     }
     delayCallback(value);
-    // Console.log(delay);
-    // Console.log(value);
   };
 
   return (
@@ -118,7 +115,7 @@ const CommSetting = ({
             </select>
           </div>
           <div className="comm_element">
-            <div className="comm_item">DataBtis</div>
+            <div className="comm_item">DataBits</div>
             <select
               id="databits"
               onChange={onChangeDataBits}

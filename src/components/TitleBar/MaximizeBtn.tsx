@@ -1,5 +1,5 @@
-import '../scss/MaximizeBtn.scss';
-import Console from '../lib/console';
+import '../../scss/MaximizeBtn.scss';
+import Console from '../../lib/console';
 
 const onClickHandler = () => {
   Console.log('Maximize!!!');

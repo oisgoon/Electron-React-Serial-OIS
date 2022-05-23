@@ -1,5 +1,5 @@
-import '../scss/CloseBtn.scss';
-import Console from '../lib/console';
+import '../../scss/CloseBtn.scss';
+import Console from '../../lib/console';
 
 const onClickHandler = () => {
   Console.log('Close !!!');

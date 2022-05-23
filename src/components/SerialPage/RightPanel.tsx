@@ -1,5 +1,5 @@
 import ReceiveData from './ReceivePanel';
-import '../scss/RightPanel.scss';
+import '../../scss/RightPanel.scss';
 
 const RigthPanel = () => {
   return (

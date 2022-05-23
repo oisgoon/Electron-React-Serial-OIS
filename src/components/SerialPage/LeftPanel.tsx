@@ -3,7 +3,7 @@ import Console from 'lib/console';
 import CommSetting from './CommSetting';
 import SendPanel from './SendPanel';
 import CommBtn from './CommBtn';
-import '../scss/LeftPanel.scss';
+import '../../scss/LeftPanel.scss';
 
 const LeftPanel = () => {
   const [connectBtn, setConnectBtn] = useState(true);

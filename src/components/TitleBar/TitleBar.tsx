@@ -1,8 +1,8 @@
 import MinimizeBtn from './MinimizeBtn';
 import MaximizeBtn from './MaximizeBtn';
 import CloseBtn from './CloseBtn';
-import '../scss/TitleBar.scss';
-import icon from '../../assets/icon_red.svg';
+import '../../scss/TitleBar.scss';
+import icon from '../../../assets/icon_red.svg';
 
 declare global {
   interface Window {

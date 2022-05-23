@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import '../scss/CommBtn.scss';
+import { useState } from 'react';
+import '../../scss/CommBtn.scss';
 
 const CommBtn = ({ connectBtn, connectCallback, startCallback }: any) => {
   const [isConnect, setConnect] = useState('Connect');

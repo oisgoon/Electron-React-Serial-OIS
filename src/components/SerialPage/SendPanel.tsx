@@ -1,5 +1,5 @@
 import SendForm from './SendForm';
-import '../scss/SendPanel.scss';
+import '../../scss/SendPanel.scss';
 
 const SendPanel = ({
   sendBtn,

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import '../scss/SendForm.scss';
+import '../../scss/SendForm.scss';
 import Console from 'lib/console';
 
 let autoSendInterval: any;

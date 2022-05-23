@@ -1,6 +1,6 @@
 import '../scss/ViewPort.scss';
-import LeftPanel from './LeftPanel';
-import RigthPanel from './RightPanel';
+import LeftPanel from './SerialPage/LeftPanel';
+import RigthPanel from './SerialPage/RightPanel';
 
 const ViewPort = () => {
   return (
