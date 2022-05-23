@@ -12,29 +12,7 @@ const ReceivePanel = () => {
 
   const scrollRef = useRef<any>();
 
-  const today = new Date();
-
-  const year = String(today.getFullYear());
-  const month = String(today.getMonth());
-  const date = String(today.getDate());
-  const hours = String(today.getHours());
-  const minutes = String(today.getMinutes());
-  const seconds = String(today.getSeconds());
-  const milliseconds = String(today.getMilliseconds());
-
   const onChange = () => {};
-
-  const timeStampChange = useCallback(() => {
-    setTimeStamp(
-      `[${year.padStart(4)}/${month.padStart(2, '0')}/${date.padStart(
-        2,
-        '0'
-      )}/${hours.padStart(2, '0')}:${minutes.padStart(
-        2,
-        '0'
-      )}:${seconds.padStart(2, '0')}:${milliseconds.padStart(3, '0')}] `
-    );
-  }, [date, hours, milliseconds, minutes, month, seconds, year]);
 
   const onTimeStamp = () => {
     if (timeStampUse === false) {
@@ -51,10 +29,6 @@ const ReceivePanel = () => {
     setReceiveData([]);
     window.electron.ipcRenderer.send('reset', 'reset');
   };
-
-  // const onSave = () => {
-  //   window.electron.ipcRenderer.send('save', 'save');
-  // };
 
   const CRCheck = () => {
     window.electron.ipcRenderer.send('CR_Check', 'CR_Check');
@@ -81,16 +55,10 @@ const ReceivePanel = () => {
     }
 
     window.electron.ipcRenderer.receiveOnce('read_data', (data: string) => {
-      setReceiveData(receiveData.concat(`${data}`));
+      setReceiveData(receiveData.concat(`${data}${CR}${LF}`));
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
     });
-    // return () => {
-    //   if (reset === true) {
-    //     setReset(false);
-    //     setReceiveData([]);
-    //   }
-    // };
-  }, [receiveData, reset]);
+  }, [CR, LF, receiveData, reset]);
 
   return (
     <div className="receive_panel">
@@ -105,24 +73,15 @@ const ReceivePanel = () => {
             <input type="checkbox" onClick={LFCheck} />
             <div>LF</div>
           </div>
-          {/* <div className="chk_botton">
-            <label htmlFor="time" className="time_label">
-              <input type="checkbox" onClick={onTimeStamp} id="time" />
-              <div className="chk_botton_title">Time</div>
-            </label>
-          </div> */}
           <button type="button" onClick={onReset} className="button">
             Reset
           </button>
-          {/* <button type="button" onClick={onSave} className="button">
-            Save
-          </button> */}
         </div>
       </div>
       <div className="receive_panel_border">
         <textarea
           ref={scrollRef}
-          value={receiveData.join(`${CR}${LF}`)}
+          value={receiveData.join('')}
           onChange={onChange}
           className="receive_data"
         />
