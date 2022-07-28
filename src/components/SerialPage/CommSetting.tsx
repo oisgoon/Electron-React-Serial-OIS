@@ -1,6 +1,7 @@
 import Console from 'lib/console';
 import React, { useEffect, useState } from 'react';
 import '../../scss/CommSetting.scss';
+import refreshIcon from '../../../assets/refresh_icon.svg';
 
 const CommSetting = ({
   portCallback,
@@ -11,6 +12,7 @@ const CommSetting = ({
   const [list, setList] = useState<string[]>(['']);
   const [delay, setDelay] = useState<string>('0');
   // const [portSelect, setPortSelect] = useState(false);
+  const [refresh, setRefresh] = useState<boolean>(false);
 
   useEffect(() => {
     window.electron.ipcRenderer.send('loading');
@@ -21,7 +23,13 @@ const CommSetting = ({
       Console.log(data);
       setList(data);
     });
-  }, []);
+    setRefresh(false);
+  }, [refresh]);
+
+  const onRefresh = () => {
+    console.log('Comport Refresh');
+    setRefresh(true);
+  };
 
   const onChangeComport = (e: {
     target: { value: React.SetStateAction<string> };
@@ -82,86 +90,113 @@ const CommSetting = ({
       <div className="comm_title">Comm Setting</div>
       <div className="comm_setting_border">
         <div className="comm_elements">
-          <div className="comm_element">
-            <div className="comm_item">ComPort</div>
-            <select
-              disabled={settingOption}
-              id="comport"
-              onChange={onChangeComport}
-              className="comm_input"
+          <div className="comm_setting_row_box">
+            <div className="comm_refresh_button_space" />
+            <div className="comm_element">
+              <div className="comm_item">ComPort</div>
+              <select
+                disabled={settingOption}
+                id="comport"
+                onChange={onChangeComport}
+                className="comm_input"
+              >
+                <option hidden>Select Port!!!</option>
+                {list.map((port) => {
+                  return <option key={port.toString()}>{port}</option>;
+                })}
+              </select>
+            </div>
+            <div
+              className="comm_refresh_button_space comm_refresh_button"
+              onClick={onRefresh}
+              onKeyPress={onRefresh}
+              role="button"
+              tabIndex={-1}
             >
-              <option hidden>Select Port!!!</option>
-              {list.map((port) => {
-                return <option key={port.toString()}>{port}</option>;
-              })}
-            </select>
+              <img
+                src={refreshIcon}
+                width="45%"
+                className="refresh_icon"
+                alt="icon"
+              />
+            </div>
           </div>
-          <div className="comm_element">
-            <div className="comm_item">BaudRate</div>
-            <select
-              id="baudrate"
-              onChange={onChangeBaudRate}
-              disabled={settingOption}
-              className="comm_input"
-            >
-              <option value="9600">9600</option>
-              <option value="19200">19200</option>
-              <option value="38400">38400</option>
-              <option value="57600">57600</option>
-              <option value="115200">115200</option>
-              <option value="230400">230400</option>
-              <option value="460800">460800</option>
-              <option value="921600">921600</option>
-            </select>
+          <div className="comm_setting_row_box">
+            <div className="comm_element">
+              <div className="comm_item">BaudRate</div>
+              <select
+                id="baudrate"
+                onChange={onChangeBaudRate}
+                disabled={settingOption}
+                className="comm_input"
+              >
+                <option value="9600">9600</option>
+                <option value="19200">19200</option>
+                <option value="38400">38400</option>
+                <option value="57600">57600</option>
+                <option value="115200">115200</option>
+                <option value="230400">230400</option>
+                <option value="460800">460800</option>
+                <option value="921600">921600</option>
+              </select>
+            </div>
           </div>
-          <div className="comm_element">
-            <div className="comm_item">DataBits</div>
-            <select
-              id="databits"
-              onChange={onChangeDataBits}
-              disabled={settingOption}
-              className="comm_input"
-            >
-              <option value="8">8</option>
-              <option value="7">7</option>
-            </select>
+          <div className="comm_setting_row_box">
+            <div className="comm_element">
+              <div className="comm_item">DataBits</div>
+              <select
+                id="databits"
+                onChange={onChangeDataBits}
+                disabled={settingOption}
+                className="comm_input"
+              >
+                <option value="8">8</option>
+                <option value="7">7</option>
+              </select>
+            </div>
           </div>
-          <div className="comm_element">
-            <div className="comm_item">Parity</div>
-            <select
-              id="parity"
-              onChange={onChangeParityBits}
-              disabled={settingOption}
-              className="comm_input"
-            >
-              <option value="none">None</option>
-              <option value="odd">Odd</option>
-              <option value="even">Even</option>
-              <option value="space">Space</option>
-              <option value="mark">Mark</option>
-            </select>
+          <div className="comm_setting_row_box">
+            <div className="comm_element">
+              <div className="comm_item">Parity</div>
+              <select
+                id="parity"
+                onChange={onChangeParityBits}
+                disabled={settingOption}
+                className="comm_input"
+              >
+                <option value="none">None</option>
+                <option value="odd">Odd</option>
+                <option value="even">Even</option>
+                <option value="space">Space</option>
+                <option value="mark">Mark</option>
+              </select>
+            </div>
           </div>
-          <div className="comm_element">
-            <div className="comm_item">StopBit</div>
-            <select
-              id="stopbit"
-              onChange={onChangeStopBits}
-              disabled={settingOption}
-              className="comm_input"
-            >
-              <option value="1">1</option>
-              <option value="2">2</option>
-            </select>
+          <div className="comm_setting_row_box">
+            <div className="comm_element">
+              <div className="comm_item">StopBit</div>
+              <select
+                id="stopbit"
+                onChange={onChangeStopBits}
+                disabled={settingOption}
+                className="comm_input"
+              >
+                <option value="1">1</option>
+                <option value="2">2</option>
+              </select>
+            </div>
           </div>
-          <div className="comm_element">
-            <div className="comm_item">Delay (ms)</div>
-            <input
-              id="delay"
-              value={delay}
-              onChange={onChangeDelay}
-              disabled={delayInput}
-              className="comm_input"
-            />
+          <div className="comm_setting_row_box">
+            <div className="comm_element">
+              <div className="comm_item">Delay (ms)</div>
+              <input
+                id="delay"
+                value={delay}
+                onChange={onChangeDelay}
+                disabled={delayInput}
+                className="comm_input"
+              />
+            </div>
           </div>
         </div>
       </div>
