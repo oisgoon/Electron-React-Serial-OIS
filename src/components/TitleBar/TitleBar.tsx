@@ -4,6 +4,8 @@ import CloseBtn from './CloseBtn';
 import '../../scss/TitleBar.scss';
 import icon from '../../../assets/icon_red.svg';
 
+const pjson = require('../../../package.json');
+
 declare global {
   interface Window {
     electron: IElectronAPI;
@@ -21,7 +23,7 @@ const TitleBar = () => {
         <img width="32px" alt="icon" src={icon} />
       </div>
       <div className="title">
-        Serial Communication - OIS - 1.1.1 [2022.07.27]
+        Serial Communication - OIS - {pjson.version} [{pjson.date}]
       </div>
       <div className="control_btn">
         <MinimizeBtn />
