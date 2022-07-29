@@ -106,19 +106,21 @@ const CommSetting = ({
                 })}
               </select>
             </div>
-            <div
-              className="comm_refresh_button_space comm_refresh_button"
-              onClick={onRefresh}
-              onKeyPress={onRefresh}
-              role="button"
-              tabIndex={-1}
-            >
-              <img
-                src={refreshIcon}
-                width="45%"
-                className="refresh_icon"
-                alt="icon"
-              />
+            <div className="comm_refresh_button_space">
+              <div
+                className="comm_refresh_button"
+                onClick={onRefresh}
+                onKeyPress={onRefresh}
+                role="button"
+                tabIndex={-1}
+              >
+                <img
+                  src={refreshIcon}
+                  width="100%"
+                  className="refresh_icon"
+                  alt="icon"
+                />
+              </div>
             </div>
           </div>
           <div className="comm_setting_row_box">

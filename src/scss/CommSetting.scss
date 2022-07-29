@@ -54,6 +54,7 @@ $background_color: rgb(80, 80, 80);
 
 .comm_refresh_button_space {
   display: flex;
+  justify-content: right;
 
   width: 10%;
   height: 100%;
@@ -65,8 +66,18 @@ $background_color: rgb(80, 80, 80);
   display: flex;
   justify-content: right;
 
-  width: 10%;
+  width: 50%;
   height: 100%;
+
+  cursor: pointer;
+}
+
+.comm_refresh_button:hover {
+  background-color: rgb(80, 80, 80);
+}
+
+.comm_refresh_button:active {
+  background-color: rgb(40, 40, 40);
 }
 
 .comm_element {
