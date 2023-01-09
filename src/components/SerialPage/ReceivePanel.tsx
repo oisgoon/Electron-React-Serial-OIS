@@ -21,7 +21,7 @@ const ReceivePanel = () => {
     const today = new Date();
 
     const year = fillZero(4, String(today.getFullYear()));
-    const month = fillZero(2, String(today.getMonth()));
+    const month = fillZero(2, String(today.getMonth() + 1));
     const date = fillZero(2, String(today.getDate()));
     const hours = fillZero(2, String(today.getHours()));
     const minutes = fillZero(2, String(today.getMinutes()));
