@@ -1,5 +1,3 @@
-<img src=".erb/img/erb-banner.svg" width="100%" />
-
 <br>
 
 <p>
@@ -9,13 +7,6 @@
 <br>
 
 <div align="center">
-
-[![Build Status][github-actions-status]][github-actions-url]
-[![Github Tag][github-tag-image]][github-tag-url]
-
-[![OpenCollective](https://opencollective.com/electron-react-boilerplate/backers/badge.svg)](#backers)
-[![OpenCollective](https://opencollective.com/electron-react-boilerplate/sponsors/badge.svg)](#sponsors)
-[![StackOverflow][stackoverflow-img]][stackoverflow-url]
 
 </div>
 
